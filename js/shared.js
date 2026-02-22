@@ -4,7 +4,8 @@
 // CONFIGURAZIONE - Modifica questo URL con il tuo webhook n8n
 // ============================================================
 const WEBHOOK_URL = 'https://n8n-production-87eb.up.railway.app/webhook/lead-capture';
-const BOOKING_URL = 'https://cal.com/studio-golini';
+// Contact page URL
+const CONTACT_URL = 'https://italien-immobilien.italienischeranwalt.com/';
 
 // ============================================================
 // EMAIL VALIDATION
