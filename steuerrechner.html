@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steuerrechner: Immobiliensteuern in Italien</title>
+  <meta name="description" content="Berechnen Sie IMU und TARI fuer Ihre Immobilie in Italien. Steuerrechner fuer auslaendische Immobilienbesitzer.">
+  <link rel="stylesheet" href="styles/shared.css">
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>Steuerrechner fuer Immobilienbesitzer in Italien</h1>
+      <p>Berechnen Sie Ihre jaehrlichen Immobiliensteuern (IMU und TARI) als auslaendischer Eigentuemer.</p>
+    </div>
+
+    <form id="taxForm" onsubmit="return false;">
+      <div class="form-group">
+        <label for="rendita">Katasterertrag / Rendita Catastale (EUR)</label>
+        <span class="help-text">Den Katasterertrag finden Sie im Kaufvertrag oder in der Katasterbescheinigung (Visura Catastale). Falls unbekannt, schaetzen Sie ca. 500 EUR fuer eine Wohnung.</span>
+        <input type="number" id="rendita" placeholder="z.B. 500" min="1" required>
+      </div>
+
+      <div class="form-group">
+        <label for="immobilientyp">Immobilientyp</label>
+        <select id="immobilientyp" required>
+          <option value="">-- Bitte waehlen --</option>
+          <option value="wohnung">Wohnung</option>
+          <option value="haus">Haus</option>
+          <option value="gewerbe">Gewerbeimmobilie</option>
+          <option value="grundstueck">Grundstueck</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Ist dies Ihr Erstwohnsitz in Italien?</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="erstwohnsitz" value="ja" required>
+            <span>Ja</span>
+          </label>
+          <label>
+            <input type="radio" name="erstwohnsitz" value="nein">
+            <span>Nein</span>
+          </label>
+        </div>
+        <span class="help-text" style="margin-top:6px;">Erstwohnsitz (Residenza): Sie sind in der Gemeinde gemeldet und leben dort ueberwiegend.</span>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-block" onclick="calculateTax()">Steuern berechnen</button>
+      <div id="formError" class="error-msg" style="text-align:center; margin-top:8px;"></div>
+    </form>
+
+    <div id="results" class="results" style="display:none;">
+      <h2>Ihre jaehrliche Steuerbelastung</h2>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Steuerart</th>
+            <th>Details</th>
+            <th>Betrag / Jahr</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+
+      <div id="exemptNote" style="display:none; background:#f0fdf4; border-radius:8px; padding:16px; margin-bottom:24px;">
+        <strong style="color:#16a34a;">Hinweis:</strong> Als Erstwohnsitz (Prima Casa) ist Ihre Immobilie von der IMU befreit.
+      </div>
+
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:20px; font-style:italic;">
+        Hinweis: Rentner mit Wohnsitz im Ausland, die eine in internationaler Konvention gereifte Rente beziehen, erhalten eine Ermaessigung von 50% auf die IMU fuer eine nicht vermietete Immobilie in Italien. Die TARI variiert je nach Gemeinde &mdash; die angegebenen Werte sind Richtwerte. Fuer eine praezise Berechnung kontaktieren Sie uns.
+      </p>
+
+      <div style="text-align:center;">
+        <button class="btn btn-secondary" onclick="showModal()">
+          Vollstaendigen Steuerbericht per E-Mail erhalten
+        </button>
+      </div>
+    </div>
+
+    <!-- Agevolazioni Fiscali Section -->
+    <div style="margin-top:40px; padding-top:32px; border-top:2px solid rgba(255,255,255,0.3);">
+      <h2 style="color:var(--text); margin-bottom:20px;">Steuervorteile fuer Zuwanderer nach Italien</h2>
+      <p style="color:var(--text-muted); margin-bottom:24px;">Italien bietet attraktive Steuervorteile fuer Personen, die ihren Wohnsitz nach Italien verlegen. Pruefen Sie, ob Sie berechtigt sind:</p>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="color:var(--accent) !important; margin-bottom:8px;">Flat Tax 7% fuer Rentner</h3>
+        <p style="color:var(--text-muted) !important; margin-bottom:8px;">Pauschalsteuer von nur <strong style="color:var(--text);">7%</strong> auf alle auslaendischen Einkuenfte fuer <strong style="color:var(--text);">10 Jahre</strong>.</p>
+        <ul style="color:var(--text-muted); padding-left:20px; font-size:0.9rem;">
+          <li>Fuer Rentner mit auslaendischer Rente</li>
+          <li>Wohnsitz in Sueditalien (Gemeinde unter 20.000 Einwohner)</li>
+          <li>Regionen: Sizilien, Kalabrien, Sardinien, Kampanien, Basilikata, Abruzzen, Molise, Apulien</li>
+          <li>Nicht in Italien steuerlich ansaessig in den letzten 5 Jahren</li>
+          <li>Befreiung von IVIE und IVAFE Vermoegenssteuer</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="color:var(--accent) !important; margin-bottom:8px;">Regime Impatriati fuer Arbeitnehmer</h3>
+        <p style="color:var(--text-muted) !important; margin-bottom:8px;">Steuerbefreiung von <strong style="color:var(--text);">50%</strong> des Einkommens (60% mit Kindern) fuer <strong style="color:var(--text);">5 Jahre</strong>.</p>
+        <ul style="color:var(--text-muted); padding-left:20px; font-size:0.9rem;">
+          <li>Fuer qualifizierte Arbeitnehmer und Selbstaendige</li>
+          <li>Maximal 600.000 EUR beguenstigtes Einkommen pro Jahr</li>
+          <li>Nicht in Italien steuerlich ansaessig in den letzten 3 Jahren</li>
+          <li>Verpflichtung, mindestens 4 Jahre in Italien zu bleiben</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="color:var(--accent) !important; margin-bottom:8px;">Flat Tax fuer vermoeegende Neuzuziehende (ab 2026)</h3>
+        <p style="color:var(--text-muted) !important; margin-bottom:8px;">Pauschalsteuer von <strong style="color:var(--text);">300.000 EUR/Jahr</strong> auf saemtliche auslaendische Einkuenfte.</p>
+        <ul style="color:var(--text-muted); padding-left:20px; font-size:0.9rem;">
+          <li>Fuer Personen mit hohem Vermoegen und Auslandseinkuenften</li>
+          <li>Nicht in Italien steuerlich ansaessig in 9 der letzten 10 Jahre</li>
+          <li>Zusaetzlich 50.000 EUR pro Familienmitglied</li>
+          <li>Italienische Einkuenfte werden normal besteuert</li>
+        </ul>
+      </div>
+
+      <div style="text-align:center; margin-top:24px;">
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:12px;">Moechten Sie pruefen, ob Sie fuer eine dieser Regelungen in Frage kommen?</p>
+        <button class="btn btn-primary" onclick="showModal()" style="margin-right:8px;">
+          Kostenlose Ersteinschaetzung per E-Mail
+        </button>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <p>Benoetigten Sie Hilfe bei der Steuererklaerung in Italien?</p>
+      <a href="https://italien-immobilien.italienischeranwalt.com/" class="btn btn-outline">
+        Zurueck zur Hauptseite
+      </a>
+    </div>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script>
+    const MULTIPLIERS = {
+      'wohnung': 160,
+      'haus': 160,
+      'gewerbe': 65,
+      'grundstueck': 135
+    };
+
+    const TARI_ESTIMATES = {
+      'wohnung': 250,
+      'haus': 350,
+      'gewerbe': 400,
+      'grundstueck': 100
+    };
+
+    const TYPE_LABELS = {
+      'wohnung': 'Wohnung',
+      'haus': 'Haus',
+      'gewerbe': 'Gewerbe',
+      'grundstueck': 'Grundstueck'
+    };
+
+    function calculateTax() {
+      const rendita = parseFloat(document.getElementById('rendita').value);
+      const typ = document.getElementById('immobilientyp').value;
+      const erstwohnsitzEl = document.querySelector('input[name="erstwohnsitz"]:checked');
+      const errorEl = document.getElementById('formError');
+
+      if (!rendita || rendita <= 0) { errorEl.textContent = 'Bitte geben Sie den Katasterertrag ein.'; return; }
+      if (!typ) { errorEl.textContent = 'Bitte waehlen Sie den Immobilientyp.'; return; }
+      if (!erstwohnsitzEl) { errorEl.textContent = 'Bitte geben Sie an, ob es Ihr Erstwohnsitz ist.'; return; }
+      errorEl.textContent = '';
+
+      const isErstwohnsitz = erstwohnsitzEl.value === 'ja';
+      const multiplier = MULTIPLIERS[typ];
+      const aliquota = 0.0076; // Standard rate 7.6 per mille
+
+      // IMU = Rendita * 1.05 * multiplier * aliquota
+      let imu = 0;
+      let imuDetails = '';
+      if (isErstwohnsitz) {
+        imu = 0;
+        imuDetails = 'Befreit (Erstwohnsitz)';
+        document.getElementById('exemptNote').style.display = 'block';
+      } else {
+        imu = rendita * 1.05 * multiplier * aliquota;
+        imuDetails = 'Rendita ' + formatEUR(rendita) + ' x 1,05 x ' + multiplier + ' x 0,76%';
+        document.getElementById('exemptNote').style.display = 'none';
+      }
+
+      const tari = TARI_ESTIMATES[typ];
+      const gesamt = imu + tari;
+
+      let html = '';
+      html += '<tr><td>IMU (Gemeindesteuer)</td><td>' + imuDetails + '</td><td>' + formatEUR(imu) + '</td></tr>';
+      html += '<tr><td>TARI (Abfallgebuehr)</td><td>Schaetzung fuer ' + TYPE_LABELS[typ] + '</td><td>ca. ' + formatEUR(tari) + '</td></tr>';
+      html += '<tr class="total-row"><td><strong>Jaehrliche Gesamtbelastung</strong></td><td></td><td><strong>' + formatEUR(gesamt) + '</strong></td></tr>';
+
+      document.getElementById('resultsBody').innerHTML = html;
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+
+      window._taxData = {
+        rendita: rendita,
+        immobilientyp: typ,
+        erstwohnsitz: isErstwohnsitz,
+        imu: imu,
+        tari: tari,
+        gesamt: gesamt
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.insertAdjacentHTML('beforeend', getModalHTML());
+      initModal('steuerrechner', function() { return window._taxData || {}; });
+    });
+  </script>
+</body>
+</html>

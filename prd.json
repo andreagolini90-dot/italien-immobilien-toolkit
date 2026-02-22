@@ -1,0 +1,111 @@
+{
+  "project": "Italien-Immobilien Lead Toolkit",
+  "branchName": "ralph/italien-immobilien-toolkit",
+  "description": "Lead generation toolkit for Studio Legale Golini. 4 standalone HTML/JS/CSS tools embedded via iframe in onepage.io landing pages. German-language calculators, checklists, and diagnostic quiz that capture leads via n8n webhooks (Railway) to Google Sheets.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create shared CSS and JS utilities file",
+      "description": "As a developer, I need a shared base for all 4 tools. Create styles/shared.css with: color scheme navy (#1B3A5C) primary, gold (#C9A84C) accent, white bg, clean sans-serif font (system-ui). Responsive base styles for forms, buttons, tables, modals. Create js/shared.js with: leadCapture(source, data) function that POSTs JSON {email, source, data, timestamp, gdpr_consent} to a configurable WEBHOOK_URL (set at top of file as const). Also include: showModal(), hideModal(), validateEmail() helpers. Style the GDPR checkbox and email modal. All text strings in German. Files must work standalone (no npm, no build step).",
+      "acceptanceCriteria": [
+        "styles/shared.css created with color scheme, form styles, modal styles, responsive design",
+        "js/shared.js created with leadCapture POST function, modal helpers, email validation",
+        "WEBHOOK_URL configurable as const at top of shared.js",
+        "No build tools required - pure CSS and vanilla JS",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Build Kostenrechner standalone HTML tool",
+      "description": "As a German investor, I want to calculate the total cost of buying property in Italy. Create kostenrechner.html as a single self-contained page (can reference shared.css and shared.js via relative path). Content: title 'Kostenrechner: Immobilienkauf in Italien', subtitle explaining the tool. Form: Kaufpreis (number EUR), Immobilientyp (select: Erstwohnsitz/Zweitwohnsitz/Gewerbe), Region (select: 20 Italian regions in German), Kauferstatus (radio: EU-Buerger/Nicht-EU-Buerger). On submit, calculate: Registersteuer 2% Erstwohnsitz / 9% Zweitwohnsitz / 10% IVA Gewerbe. Notarkosten 1.5% under 500k, 0.75% over 500k. Maklergebuehren 3% + 22% IVA = 3.66%. Uebersetzung fixed 1500 EUR. Anwaltskosten 1.5% min 2000 EUR. Show results in table with row per cost item (label, rate, EUR amount) and Gesamtkosten total in bold. Below results: button 'Detaillierte Aufstellung per E-Mail erhalten' opens lead capture modal with source='kostenrechner'. Ensure iframe-friendly (no frame-busting, body margin 0, responsive width 100%).",
+      "acceptanceCriteria": [
+        "kostenrechner.html loads standalone in browser",
+        "Form with 4 fields: Kaufpreis, Immobilientyp, Region, Kauferstatus",
+        "Calculation produces correct cost breakdown for all property types",
+        "Results table shows 5 cost items + Gesamtkosten total",
+        "Lead capture modal opens with email field and GDPR checkbox",
+        "Modal submits to webhook with source='kostenrechner' and calculation data",
+        "Responsive and iframe-friendly (no margin, 100% width)",
+        "Typecheck passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Build Steuerrechner standalone HTML tool",
+      "description": "As a non-resident property owner, I want to calculate my annual Italian taxes. Create steuerrechner.html. Title: 'Steuerrechner fuer Immobilienbesitzer in Italien'. Form: Katasterertrag/Rendita Catastale (number EUR, help text: 'Den Katasterertrag finden Sie im Kaufvertrag oder in der Katasterbescheinigung (Visura Catastale)'), Immobilientyp (select: Wohnung/Haus multiplier 160, Gewerbe 80, Grundstueck 135), Erstwohnsitz in Italien (radio: Ja=exempt from IMU/Nein). Calculation: IMU = Rendita * 1.05 * multiplier * 0.0076 (standard rate). If Erstwohnsitz=Ja, IMU=0 (exempt). TARI estimate: Wohnung 250 EUR, Haus 350 EUR, Gewerbe 400 EUR, Grundstueck 100 EUR. Show results: IMU jaehrlich, TARI jaehrlich, Gesamtsteuerbelastung. Lead capture: 'Vollstaendigen Steuerbericht per E-Mail erhalten' with source='steuerrechner'. Iframe-friendly.",
+      "acceptanceCriteria": [
+        "steuerrechner.html loads standalone in browser",
+        "Form with 3 fields: Katasterertrag, Immobilientyp, Erstwohnsitz",
+        "Help text explains where to find Rendita Catastale",
+        "IMU calculation correct with proper multipliers",
+        "Erstwohnsitz=Ja shows IMU exempt",
+        "TARI estimate shown by property type",
+        "Lead capture modal with source='steuerrechner'",
+        "Iframe-friendly",
+        "Typecheck passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "Build Checkliste Immobilienkauf standalone HTML tool",
+      "description": "As a German buyer, I want a step-by-step checklist for purchasing property in Italy. Create checkliste.html. Title: 'Checkliste: Immobilienkauf in Italien - Schritt fuer Schritt'. Interactive accordion with 8 steps, each expandable/collapsible. Steps: 1) Steuernummer (Codice Fiscale) beantragen - sub-items: Reisepass, Konsulat oder Agentur der Einnahmen. 2) Italienisches Bankkonto eroeffnen - sub: Dokumente, Kontotyp. 3) Immobilie suchen - sub: Agentur, Online-Portale, Besichtigung. 4) Rechtliche Pruefung (Due Diligence) - sub: Katastercheck, Baukonformitaet, Belastungen, Hypotheken. 5) Vorvertrag (Compromesso/Preliminare) - sub: Anzahlung 10-30%, Bedingungen, Fristen. 6) Notarvertrag (Rogito) - sub: Notarwahl, Dolmetscher, Zahlung. 7) Eigentuemerwechsel (Voltura) - sub: Katasteramt, Gemeinde. 8) Nach dem Kauf - sub: Versorgungsvertraege, IMU/TARI, Wohnsitzanmeldung. Each step has checkbox sub-items that can be toggled. At bottom: 'Checkliste als PDF per E-Mail erhalten' lead capture with source='checkliste'. Iframe-friendly.",
+      "acceptanceCriteria": [
+        "checkliste.html loads standalone in browser",
+        "8-step accordion, each expandable/collapsible",
+        "Each step has descriptive text and checkbox sub-items",
+        "Checkboxes toggle on click (client-side only)",
+        "Lead capture modal at bottom with source='checkliste'",
+        "Iframe-friendly",
+        "Typecheck passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-005",
+      "title": "Build Problemloeser diagnostic quiz standalone HTML tool",
+      "description": "As a property owner with issues, I want to diagnose my problem. Create problemloeser.html. Title: 'Immobilien-Problemloeser: Finden Sie die richtige Loesung'. Multi-step quiz. Step 1 question: 'Was beschreibt Ihr Problem am besten?' - options as clickable cards: A) Bauliche Probleme (Abusivismo/Bauverstoss), B) Erbschaft und Nachlass, C) Eigentuemergemeinschaft (Condominio), D) Grundbuch- und Katasterprobleme, E) Steuerfragen und Rueckstaende, F) Miet- und Pachtprobleme. Step 2 shows 2-3 sub-options based on Step 1 choice. Example for A: 'Nicht genehmigte Umbauten', 'Fehlende Baugenehmigung', 'Abbruchverfuegung'. Step 3: result card showing: problem title, explanation (3-4 sentences what this means legally), urgency (Hoch/Mittel/Niedrig with color), recommended actions (3 bullets), CTA 'Kostenlose Erstberatung buchen' (link to booking URL), and lead capture 'Detaillierte Analyse per E-Mail' with source='problemloeser' and data={category, subcategory, urgency}. Iframe-friendly.",
+      "acceptanceCriteria": [
+        "problemloeser.html loads standalone in browser",
+        "Step 1 shows 6 problem categories as clickable cards",
+        "Step 2 shows sub-options based on Step 1 selection",
+        "Result card shows diagnosis, urgency level, recommendations",
+        "Booking CTA and lead capture modal present",
+        "Quiz answers included in lead capture data",
+        "Iframe-friendly",
+        "Typecheck passes"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006",
+      "title": "Create index.html and deploy to GitHub Pages",
+      "description": "As a developer, I need to deploy all tools and verify they work. Create index.html as a simple directory page listing all 4 tools with links (for testing, not shown to end users). Add README.md with: project overview, file structure, how to configure WEBHOOK_URL in shared.js, iframe embed code snippets for onepage.io (one per tool), n8n webhook expected payload format {email, source, data, timestamp, gdpr_consent}. Ensure all 4 HTML files and shared assets are in root directory ready for GitHub Pages deployment. Add .nojekyll file for GitHub Pages. Verify all files load correctly when opened locally.",
+      "acceptanceCriteria": [
+        "index.html links to all 4 tools",
+        "README.md with setup instructions and iframe embed snippets",
+        ".nojekyll file present",
+        "All 4 tools load correctly when opened in browser",
+        "All lead capture modals function correctly",
+        "No console errors in any tool",
+        "Typecheck passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,548 @@
+/* Italien-Immobilien Lead Toolkit - Shared Styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;700;900&display=swap');
+
+:root {
+  --primary: #3A4359;
+  --primary-light: #4d5570;
+  --accent: #ffffff;
+  --accent-hover: #e0e0e0;
+  --white: #ffffff;
+  --bg: #3A4359;
+  --bg-light: #454d66;
+  --gray-50: #F9FAFB;
+  --gray-100: #f3f4f6;
+  --gray-200: rgba(255,255,255,0.15);
+  --gray-300: rgba(255,255,255,0.25);
+  --gray-500: rgba(255,255,255,0.7);
+  --gray-700: rgba(255,255,255,0.85);
+  --gray-900: #1F1F1F;
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,0.7);
+  --red: #dc2626;
+  --green: #16a34a;
+  --orange: #ea580c;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.12);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.2), 0 4px 6px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Cinzel', serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+}
+
+/* Container */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 32px 0 24px;
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  margin-bottom: 32px;
+}
+.hero h1 {
+  font-size: 1.6rem;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.hero p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+.form-group .help-text {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.form-group input[type="number"],
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: 'Cinzel', serif;
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+.form-group input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+.form-group select option {
+  background: var(--primary);
+  color: var(--text);
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.2);
+}
+
+/* Radio Group */
+.radio-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: var(--radius);
+  transition: all 0.2s;
+  color: var(--text);
+}
+.radio-group label:hover {
+  border-color: var(--accent);
+}
+.radio-group input[type="radio"] {
+  accent-color: var(--accent);
+}
+.radio-group input[type="radio"]:checked + span {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--white);
+  color: var(--primary);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+  color: var(--primary);
+}
+.btn-secondary {
+  background: var(--white);
+  color: var(--primary);
+}
+.btn-secondary:hover {
+  background: var(--gray-50);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--primary);
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* Results Table */
+.results {
+  margin-top: 32px;
+  animation: fadeIn 0.3s ease;
+}
+.results h2 {
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+.results-table th,
+.results-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.results-table th {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  font-weight: 700;
+}
+.results-table tr:last-child td {
+  border-bottom: none;
+}
+.results-table .total-row {
+  background: rgba(255,255,255,0.15);
+  color: var(--white);
+  font-weight: 700;
+}
+.results-table .total-row td {
+  border-bottom: none;
+  padding: 14px 16px;
+  font-size: 1.05rem;
+}
+
+/* Cards */
+.card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s;
+}
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  background: rgba(255,255,255,0.12);
+}
+.card-clickable {
+  cursor: pointer;
+}
+.card-clickable:hover {
+  border-color: var(--accent);
+}
+.card h3 {
+  color: var(--text) !important;
+}
+.card p {
+  color: var(--text-muted) !important;
+}
+.card-selected {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.12);
+}
+
+/* Accordion */
+.accordion-item {
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--text);
+  transition: background 0.2s;
+}
+.accordion-header:hover {
+  background: rgba(255,255,255,0.1);
+}
+.accordion-header .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 0.85rem;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.accordion-header .arrow {
+  transition: transform 0.2s;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.accordion-item.open .accordion-header .arrow {
+  transform: rotate(180deg);
+}
+.accordion-body {
+  display: none;
+  padding: 16px;
+  background: rgba(255,255,255,0.03);
+}
+.accordion-body p {
+  color: var(--text-muted) !important;
+}
+.accordion-item.open .accordion-body {
+  display: block;
+}
+
+/* Checklist Items */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+}
+.checklist-item input[type="checkbox"] {
+  margin-top: 4px;
+  accent-color: var(--accent);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.checklist-item label {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.checklist-item input:checked + label {
+  text-decoration: line-through;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Quiz Steps */
+.quiz-step {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.quiz-step.active {
+  display: block;
+}
+.quiz-step h2 {
+  color: var(--text);
+}
+.quiz-step p {
+  color: var(--text-muted);
+}
+.quiz-options {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+.quiz-option {
+  padding: 16px;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+}
+.quiz-option strong {
+  color: var(--text);
+}
+.quiz-option span {
+  color: var(--text-muted) !important;
+}
+.quiz-option:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.1);
+}
+.quiz-option.selected {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.15);
+}
+
+/* Urgency Badges */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.badge-hoch { background: #fef2f2; color: var(--red); }
+.badge-mittel { background: #fff7ed; color: var(--orange); }
+.badge-niedrig { background: #f0fdf4; color: var(--green); }
+
+/* Result Card */
+.result-card {
+  background: rgba(255,255,255,0.08);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 24px;
+  margin: 24px 0;
+}
+.result-card h3 {
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.result-card p {
+  color: var(--text-muted);
+}
+.result-card ul {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+.result-card li {
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+/* Lead Capture Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal-overlay.active {
+  display: flex;
+}
+.modal {
+  background: var(--primary);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.modal h3 {
+  color: var(--text);
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+}
+.modal p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  line-height: 1;
+}
+.modal-close:hover {
+  color: var(--text);
+}
+.gdpr-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 16px 0 20px;
+}
+.gdpr-check input {
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+.gdpr-check label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+/* Success Message */
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 24px;
+}
+.success-msg .checkmark {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  color: var(--green);
+}
+.success-msg h3 {
+  color: var(--green);
+}
+.success-msg p {
+  color: var(--text-muted);
+}
+
+/* Error */
+.error-msg {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  padding: 32px 0;
+  margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+.cta-section p {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* Exempt note (steuerrechner) */
+#exemptNote {
+  background: rgba(22,163,74,0.15) !important;
+  color: var(--green) !important;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+#exemptNote strong {
+  color: var(--green);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container { padding: 16px 12px; }
+  .hero h1 { font-size: 1.3rem; }
+  .radio-group { flex-direction: column; }
+  .results-table th, .results-table td { padding: 8px 10px; font-size: 0.85rem; }
+  .modal { padding: 24px 16px; }
+  .quiz-options { grid-template-columns: 1fr; }
+}

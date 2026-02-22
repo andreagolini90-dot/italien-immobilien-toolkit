@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kostenrechner: Immobilienkauf in Italien</title>
+  <meta name="description" content="Berechnen Sie die Gesamtkosten fuer den Kauf einer Immobilie in Italien. Registersteuer, Notarkosten, Maklergebuehren und Anwaltskosten auf einen Blick.">
+  <link rel="stylesheet" href="styles/shared.css">
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>Kostenrechner: Immobilienkauf in Italien</h1>
+      <p>Berechnen Sie alle Nebenkosten fuer Ihren Immobilienkauf in Italien &mdash; transparent und auf einen Blick.</p>
+    </div>
+
+    <form id="calcForm" onsubmit="return false;">
+      <div class="form-group">
+        <label for="kaufpreis">Kaufpreis (EUR)</label>
+        <input type="number" id="kaufpreis" placeholder="z.B. 250000" min="1" required>
+      </div>
+
+      <div class="form-group">
+        <label for="immobilientyp">Immobilientyp</label>
+        <select id="immobilientyp" required>
+          <option value="">-- Bitte waehlen --</option>
+          <option value="erstwohnsitz">Erstwohnsitz (Prima Casa)</option>
+          <option value="zweitwohnsitz">Zweitwohnsitz (Seconda Casa)</option>
+          <option value="gewerbe">Gewerbeimmobilie</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="region">Region</label>
+        <select id="region" required>
+          <option value="">-- Bitte waehlen --</option>
+          <option value="abruzzen">Abruzzen</option>
+          <option value="aostatal">Aostatal</option>
+          <option value="apulien">Apulien</option>
+          <option value="basilikata">Basilikata</option>
+          <option value="emilia-romagna">Emilia-Romagna</option>
+          <option value="friaul">Friaul-Julisch Venetien</option>
+          <option value="kalabrien">Kalabrien</option>
+          <option value="kampanien">Kampanien</option>
+          <option value="latium">Latium</option>
+          <option value="ligurien">Ligurien</option>
+          <option value="lombardei">Lombardei</option>
+          <option value="marken">Marken</option>
+          <option value="molise">Molise</option>
+          <option value="piemont">Piemont</option>
+          <option value="sardinien">Sardinien</option>
+          <option value="sizilien">Sizilien</option>
+          <option value="suedtirol">Suedtirol-Trentino</option>
+          <option value="toskana">Toskana</option>
+          <option value="umbrien">Umbrien</option>
+          <option value="venetien">Venetien</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Kauferstatus</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="status" value="eu" required>
+            <span>EU-Buerger</span>
+          </label>
+          <label>
+            <input type="radio" name="status" value="nicht-eu">
+            <span>Nicht-EU-Buerger</span>
+          </label>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-block" onclick="calculate()">Kosten berechnen</button>
+      <div id="formError" class="error-msg" style="text-align:center; margin-top:8px;"></div>
+    </form>
+
+    <div id="results" class="results" style="display:none;">
+      <h2>Ihre Kostenaufstellung</h2>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Kostenart</th>
+            <th>Satz</th>
+            <th>Betrag</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:20px; font-style:italic;">
+        Hinweis: Die Registersteuer wird in Italien auf den Katasterwert (Valore Catastale) berechnet, der in der Regel deutlich unter dem Kaufpreis liegt. Diese Berechnung basiert auf dem Kaufpreis und stellt daher eine konservative Schaetzung (Maximalwert) dar. Fuer eine praezise Berechnung kontaktieren Sie uns.
+      </p>
+
+      <div style="text-align:center;">
+        <button class="btn btn-secondary" onclick="showModal()">
+          Detaillierte Aufstellung per E-Mail erhalten
+        </button>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <p>Sie haben Fragen zu den Kosten? Wir beraten Sie gerne.</p>
+      <a href="https://italien-immobilien.italienischeranwalt.com/" class="btn btn-outline">
+        Zurueck zur Hauptseite
+      </a>
+    </div>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script>
+    function calculate() {
+      const kaufpreis = parseFloat(document.getElementById('kaufpreis').value);
+      const typ = document.getElementById('immobilientyp').value;
+      const region = document.getElementById('region').value;
+      const statusEl = document.querySelector('input[name="status"]:checked');
+      const errorEl = document.getElementById('formError');
+
+      // Validation
+      if (!kaufpreis || kaufpreis <= 0) { errorEl.textContent = 'Bitte geben Sie einen gueltigen Kaufpreis ein.'; return; }
+      if (!typ) { errorEl.textContent = 'Bitte waehlen Sie den Immobilientyp.'; return; }
+      if (!region) { errorEl.textContent = 'Bitte waehlen Sie eine Region.'; return; }
+      if (!statusEl) { errorEl.textContent = 'Bitte waehlen Sie Ihren Kauferstatus.'; return; }
+      errorEl.textContent = '';
+
+      // Calculations
+      let registersteuerRate, registersteuerLabel;
+      if (typ === 'erstwohnsitz') {
+        registersteuerRate = 0.02;
+        registersteuerLabel = 'Registersteuer (2%)';
+      } else if (typ === 'zweitwohnsitz') {
+        registersteuerRate = 0.09;
+        registersteuerLabel = 'Registersteuer (9%)';
+      } else {
+        registersteuerRate = 0.10;
+        registersteuerLabel = 'MwSt./IVA (10%)';
+      }
+      const registersteuer = kaufpreis * registersteuerRate;
+
+      // Imposte fisse (ipotecaria + catastale)
+      const imposteFisse = (typ === 'gewerbe') ? 400 : 100; // €200 da privato, €400 da impresa
+      const imposteFisseLabel = 'Grund- und Katastersteuer (pauschal)';
+
+      const notarRate = kaufpreis <= 500000 ? 0.01 : 0.005;
+      const notarkosten = Math.max(kaufpreis * notarRate, 2000);
+      const notarLabel = kaufpreis <= 500000 ? 'Notarkosten (ca. 1%)' : 'Notarkosten (ca. 0,5%)';
+
+      const maklerRate = 0.0366;
+      const maklerkosten = kaufpreis * maklerRate;
+
+      const uebersetzung = 1500;
+
+      const anwaltRate = 0.015;
+      const anwaltskosten = Math.max(kaufpreis * anwaltRate, 2000);
+      const anwaltLabel = anwaltskosten === 2000 ? 'Anwaltskosten (Min. 2.000)' : 'Anwaltskosten (1,5%)';
+
+      const gesamt = registersteuer + imposteFisse + notarkosten + maklerkosten + uebersetzung + anwaltskosten;
+      const gesamtMitKauf = kaufpreis + gesamt;
+
+      // Build table
+      const rows = [
+        [registersteuerLabel, formatPercent(registersteuerRate), formatEUR(registersteuer)],
+        [imposteFisseLabel, 'Pauschal', formatEUR(imposteFisse)],
+        [notarLabel, formatPercent(notarRate), formatEUR(notarkosten)],
+        ['Maklergebuehren (3% + MwSt.)', '3,66%', formatEUR(maklerkosten)],
+        ['Uebersetzung & Apostille', 'Pauschal', formatEUR(uebersetzung)],
+        [anwaltLabel, formatPercent(anwaltRate), formatEUR(anwaltskosten)],
+      ];
+
+      let html = '';
+      rows.forEach(function(row) {
+        html += '<tr><td>' + row[0] + '</td><td>' + row[1] + '</td><td>' + row[2] + '</td></tr>';
+      });
+      html += '<tr class="total-row"><td>Nebenkosten gesamt</td><td></td><td>' + formatEUR(gesamt) + '</td></tr>';
+      html += '<tr class="total-row"><td><strong>Gesamtkosten inkl. Kaufpreis</strong></td><td></td><td><strong>' + formatEUR(gesamtMitKauf) + '</strong></td></tr>';
+
+      document.getElementById('resultsBody').innerHTML = html;
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+
+      // Store for lead capture
+      window._calcData = {
+        kaufpreis: kaufpreis,
+        immobilientyp: typ,
+        region: region,
+        kauferstatus: statusEl.value,
+        nebenkosten: gesamt,
+        gesamtkosten: gesamtMitKauf
+      };
+    }
+
+    // Modal
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.insertAdjacentHTML('beforeend', getModalHTML());
+      initModal('kostenrechner', function() { return window._calcData || {}; });
+    });
+  </script>
+</body>
+</html>

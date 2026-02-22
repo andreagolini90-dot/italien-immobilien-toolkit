@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Immobilien-Problemloeser: Finden Sie die richtige Loesung</title>
+  <meta name="description" content="Diagnostizieren Sie Ihr Immobilienproblem in Italien und erhalten Sie eine personalisierte Loesung. Bauverstoesse, Erbschaft, Kataster und mehr.">
+  <link rel="stylesheet" href="styles/shared.css">
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>Immobilien-Problemloeser</h1>
+      <p>Finden Sie in wenigen Schritten die richtige Loesung fuer Ihr Immobilienproblem in Italien.</p>
+    </div>
+
+    <!-- Step 1: Category -->
+    <div id="step1" class="quiz-step active">
+      <h2 style="color:var(--primary); margin-bottom:8px;">Schritt 1 von 3</h2>
+      <p style="color:var(--gray-500); margin-bottom:16px;">Was beschreibt Ihr Problem am besten?</p>
+      <div class="quiz-options">
+        <div class="quiz-option card-clickable" onclick="selectCategory('bau')">
+          <strong>Bauliche Probleme</strong><br>
+          <span style="color:var(--gray-500); font-size:0.85rem;">Abusivismo, nicht genehmigte Umbauten, fehlende Baugenehmigung</span>
+        </div>
+        <div class="quiz-option card-clickable" onclick="selectCategory('erbschaft')">
+          <strong>Erbschaft und Nachlass</strong><br>
+          <span style="color:var(--gray-500); font-size:0.85rem;">Erbfolge, Testament, Nachlassregelung in Italien</span>
+        </div>
+        <div class="quiz-option card-clickable" onclick="selectCategory('condominio')">
+          <strong>Eigentuemergemeinschaft (Condominio)</strong><br>
+          <span style="color:var(--gray-500); font-size:0.85rem;">Streitigkeiten, Kosten, Verwaltung, Beschluesse</span>
+        </div>
+        <div class="quiz-option card-clickable" onclick="selectCategory('kataster')">
+          <strong>Grundbuch- und Katasterprobleme</strong><br>
+          <span style="color:var(--gray-500); font-size:0.85rem;">Falsche Eintragungen, fehlende Dokumente, Grenzstreitigkeiten</span>
+        </div>
+        <div class="quiz-option card-clickable" onclick="selectCategory('steuer')">
+          <strong>Steuerfragen und Rueckstaende</strong><br>
+          <span style="color:var(--gray-500); font-size:0.85rem;">IMU-Nachzahlungen, Doppelbesteuerung, Steuervertretung</span>
+        </div>
+        <div class="quiz-option card-clickable" onclick="selectCategory('miete')">
+          <strong>Miet- und Pachtprobleme</strong><br>
+          <span style="color:var(--gray-500); font-size:0.85rem;">Mieterstreitigkeiten, Raeumung, Vertragsrecht</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Sub-category -->
+    <div id="step2" class="quiz-step">
+      <h2 style="color:var(--primary); margin-bottom:8px;">Schritt 2 von 3</h2>
+      <p style="color:var(--gray-500); margin-bottom:16px;">Koennen Sie das Problem naeher beschreiben?</p>
+      <div id="step2Options" class="quiz-options"></div>
+      <button class="btn btn-outline" style="margin-top:16px;" onclick="goBack(1)">Zurueck</button>
+    </div>
+
+    <!-- Step 3: Result -->
+    <div id="step3" class="quiz-step">
+      <h2 style="color:var(--primary); margin-bottom:16px;">Ihre Diagnose</h2>
+      <div id="diagnosisResult"></div>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;">
+        <button class="btn btn-secondary" onclick="showModal()">
+          Detaillierte Analyse per E-Mail
+        </button>
+        <a id="bookingBtn" href="https://italien-immobilien.italienischeranwalt.com/" class="btn btn-primary">
+          Kostenlose Erstberatung
+        </a>
+      </div>
+
+      <button class="btn btn-outline" style="margin-top:16px;" onclick="restart()">Neue Analyse starten</button>
+    </div>
+
+    <div class="cta-section">
+      <p>Ueber 20 Jahre Erfahrung mit Immobilienrecht in Italien.</p>
+      <a href="https://italien-immobilien.italienischeranwalt.com/" class="btn btn-outline">
+        Zurueck zur Hauptseite
+      </a>
+    </div>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script>
+    // Quiz data
+    const QUIZ_DATA = {
+      bau: {
+        label: 'Bauliche Probleme',
+        subs: [
+          { id: 'bau_umbau', label: 'Nicht genehmigte Umbauten (Abuso Edilizio)', urgency: 'hoch',
+            diagnosis: 'Nicht genehmigte bauliche Veraenderungen koennen zu Bussgeldern, Abrissverfuegungen und Problemen beim Weiterverkauf fuehren. In vielen Faellen ist eine nachtraegliche Genehmigung (Sanatoria) moeglich.',
+            actions: ['Technisches Gutachten durch Geometra erstellen lassen', 'Pruefung der Sanierbarkeit (Sanatoria oder Condono)', 'Antrag bei der zustaendigen Gemeinde stellen'] },
+          { id: 'bau_genehm', label: 'Fehlende Baugenehmigung', urgency: 'hoch',
+            diagnosis: 'Ohne gueltige Baugenehmigung ist das Gebaeude rechtlich nicht konform. Dies kann den Verkauf oder die Nutzung erheblich einschraenken.',
+            actions: ['Urbanistischen Status bei der Gemeinde pruefen', 'Antrag auf nachtraegliche Genehmigung stellen', 'Anwalt fuer Verwaltungsrecht hinzuziehen'] },
+          { id: 'bau_abriss', label: 'Abbruchverfuegung erhalten', urgency: 'hoch',
+            diagnosis: 'Eine Abbruchverfuegung ist ein ernstes rechtliches Problem, das schnelles Handeln erfordert. Es gibt Fristen fuer Einspruch und moegliche Alternativen.',
+            actions: ['Sofort anwaltliche Beratung einholen', 'Einspruch innerhalb der gesetzlichen Frist pruefen', 'Alternative Loesungen wie Sanatoria pruefen'] }
+        ]
+      },
+      erbschaft: {
+        label: 'Erbschaft und Nachlass',
+        subs: [
+          { id: 'erb_folge', label: 'Erbfolge und Ansprueche klaeren', urgency: 'mittel',
+            diagnosis: 'Das italienische Erbrecht unterscheidet sich wesentlich vom deutschen Recht. Es gibt Pflichtanteile (Quota Legittima) und besondere Regelungen fuer Immobilien.',
+            actions: ['Erbschein oder Testament pruefen lassen', 'Dichiarazione di Successione einreichen (Frist: 12 Monate)', 'Eigentuemerwechsel im Kataster eintragen'] },
+          { id: 'erb_testament', label: 'Testament in Italien anerkennen', urgency: 'mittel',
+            diagnosis: 'Auslaendische Testamente koennen in Italien anerkannt werden, erfordern aber eine offizielle Uebersetzung und Beglaubigung.',
+            actions: ['Testament uebersetzen und beglaubigen lassen', 'Anerkennung beim zustaendigen Gericht beantragen', 'Steuerliche Pflichten in Italien erfuellen'] },
+          { id: 'erb_teil', label: 'Erbengemeinschaft aufloesen', urgency: 'niedrig',
+            diagnosis: 'Wenn mehrere Erben eine Immobilie besitzen, kann die Aufloesung einvernehmlich oder gerichtlich erfolgen. Haeufig wird die Immobilie verkauft oder ein Erbe zahlt die anderen aus.',
+            actions: ['Einvernehmliche Loesung mit allen Erben suchen', 'Immobilienbewertung durchfuehren lassen', 'Falls keine Einigung: gerichtliche Teilung beantragen'] }
+        ]
+      },
+      condominio: {
+        label: 'Eigentuemergemeinschaft',
+        subs: [
+          { id: 'cond_kosten', label: 'Ueberhoehtete Nebenkosten oder Sonderumlagen', urgency: 'mittel',
+            diagnosis: 'Als Eigentuemer haben Sie das Recht, die Abrechnungen zu pruefen und unrechtmaessige Beschluesse anzufechten. Die Frist betraegt 30 Tage ab Beschluss.',
+            actions: ['Jahresabrechnung und Kostenverteilung pruefen', 'Beschluss innerhalb von 30 Tagen anfechten (falls noetig)', 'Einsicht in alle Belege beim Verwalter verlangen'] },
+          { id: 'cond_verwalter', label: 'Probleme mit der Hausverwaltung', urgency: 'niedrig',
+            diagnosis: 'Der Verwalter (Amministratore) kann durch Beschluss der Eigentuemerversammlung abgesetzt werden. Bei Pflichtverletzungen kann auch gerichtlich vorgegangen werden.',
+            actions: ['Eigentuemerversammlung einberufen lassen', 'Absetzung des Verwalters beantragen', 'Neuen Verwalter vorschlagen'] },
+          { id: 'cond_streit', label: 'Streitigkeiten mit anderen Eigentuemern', urgency: 'niedrig',
+            diagnosis: 'Nachbarschaftsstreitigkeiten im Condominio werden zunaechst durch Vermittlung, dann durch die Eigentuemerversammlung und zuletzt gerichtlich geloest.',
+            actions: ['Mediation/Vermittlung versuchen', 'Problem auf der Eigentuemerversammlung ansprechen', 'Anwaltliche Beratung fuer Eskalationsfaelle'] }
+        ]
+      },
+      kataster: {
+        label: 'Grundbuch und Kataster',
+        subs: [
+          { id: 'kat_fehler', label: 'Falsche Katastereintragungen', urgency: 'mittel',
+            diagnosis: 'Fehlerhafte Katasterdaten koennen beim Verkauf oder bei der Steuerberechnung zu Problemen fuehren. Eine Berichtigung ist durch einen Geometra moeglich.',
+            actions: ['Aktuelle Visura Catastale anfordern', 'Geometra mit der Berichtigung beauftragen', 'Korrekturantrag beim Katasteramt einreichen'] },
+          { id: 'kat_grenze', label: 'Grenzstreitigkeiten', urgency: 'mittel',
+            diagnosis: 'Grenzstreitigkeiten erfordern eine genaue Vermessung und den Abgleich mit Katasterdaten. In vielen Faellen kann eine einvernehmliche Loesung gefunden werden.',
+            actions: ['Vermessung durch vereidigten Sachverstaendigen', 'Katasterplaene mit tatsaechlicher Situation abgleichen', 'Einvernehmliche Grenzfeststellung oder gerichtliche Klaerung'] },
+          { id: 'kat_doku', label: 'Fehlende Eigentumsdokumente', urgency: 'hoch',
+            diagnosis: 'Fehlende Eigentumsdokumente koennen den Verkauf oder die Nutzung der Immobilie blockieren. Eine Rekonstruktion ist in den meisten Faellen moeglich.',
+            actions: ['Recherche beim Grundbuchamt (Conservatoria)', 'Fehlende Dokumente rekonstruieren lassen', 'Anwalt fuer die Zusammenstellung beauftragen'] }
+        ]
+      },
+      steuer: {
+        label: 'Steuerfragen',
+        subs: [
+          { id: 'steuer_imu', label: 'IMU-Nachzahlungen oder Bescheide', urgency: 'hoch',
+            diagnosis: 'Unbezahlte IMU kann zu erheblichen Nachzahlungen mit Zinsen und Strafen fuehren. Eine freiwillige Nachzahlung (Ravvedimento Operoso) reduziert die Strafen deutlich.',
+            actions: ['Offene Steuerbetraege bei der Gemeinde pruefen', 'Ravvedimento Operoso (freiwillige Nachzahlung) nutzen', 'Steuerberater fuer korrekte Berechnung einschalten'] },
+          { id: 'steuer_doppel', label: 'Doppelbesteuerung vermeiden', urgency: 'mittel',
+            diagnosis: 'Zwischen Italien und Deutschland/Oesterreich/Schweiz bestehen Doppelbesteuerungsabkommen. Immobiliensteuern werden in der Regel im Belegenheitsstaat erhoben.',
+            actions: ['Doppelbesteuerungsabkommen pruefen', 'Steuererklaerung in beiden Laendern korrekt ausfuellen', 'Anrechnung auslaendischer Steuern beantragen'] },
+          { id: 'steuer_vertret', label: 'Steuervertretung in Italien benoetigt', urgency: 'niedrig',
+            diagnosis: 'Als Nichtresidenter benoetigen Sie moeglicherweise einen Steuervertreter (Rappresentante Fiscale) in Italien fuer Steuererklaerungen und Zahlungen.',
+            actions: ['Steuervertreter oder Commercialista beauftragen', 'Jaehrliche Steuerpflichten klaeren (IMU, TARI, IRPEF)', 'Steuernummer und Bankverbindung aktualisieren'] },
+          { id: 'steuer_agev', label: 'Steuervorteile bei Wohnsitzverlegung nach Italien', urgency: 'niedrig',
+            diagnosis: 'Italien bietet drei attraktive Steuerregime fuer Neuzuziehende: Flat Tax 7% fuer Rentner (10 Jahre, Sueditalien), Regime Impatriati fuer Arbeitnehmer (50-60% Befreiung, 5 Jahre), und Flat Tax 300.000 EUR fuer vermoeegende Neuzuziehende. Die Berechtigung haengt von Ihrer persoenlichen Situation ab.',
+            actions: ['Pruefung der Berechtigung fuer Flat Tax 7% (Rentner in Sueditalien, Gemeinde unter 20.000 Einwohner)', 'Pruefung Regime Impatriati (qualifizierte Arbeitnehmer, 3+ Jahre nicht in Italien ansaessig)', 'Analyse des Doppelbesteuerungsabkommens DE/AT/CH mit Italien', 'Steuerberater mit Erfahrung in internationaler Besteuerung hinzuziehen'] }
+        ]
+      },
+      miete: {
+        label: 'Miet- und Pachtprobleme',
+        subs: [
+          { id: 'miete_streit', label: 'Streitigkeiten mit Mietern', urgency: 'mittel',
+            diagnosis: 'Das italienische Mietrecht ist stark mieterfreundlich. Kuendigungen und Raeumungen unterliegen strengen gesetzlichen Regelungen und Fristen.',
+            actions: ['Mietvertrag und geltende Kuendigungsfristen pruefen', 'Formelle Mahnung/Abmahnung senden', 'Bei Zahlungsverzug: Raeumungsverfahren einleiten (Sfratto)'] },
+          { id: 'miete_vertrag', label: 'Mietvertrag aufsetzen oder pruefen', urgency: 'niedrig',
+            diagnosis: 'Italienische Mietvertraege haben gesetzliche Mindestlaufzeiten (4+4 Jahre oder 3+2 Jahre) und muessen beim Finanzamt registriert werden.',
+            actions: ['Vertragstyp waehlen (Canone Libero 4+4 oder Concordato 3+2)', 'Vertrag durch Anwalt pruefen lassen', 'Registrierung beim Finanzamt (Agenzia delle Entrate)'] },
+          { id: 'miete_raeumung', label: 'Raeumung eines Mieters', urgency: 'hoch',
+            diagnosis: 'Die Raeumung (Sfratto) in Italien ist ein formelles gerichtliches Verfahren, das mehrere Monate dauern kann. Eigenmaechtige Raeumung ist strafbar.',
+            actions: ['Rechtsgrund fuer Sfratto pruefen (Zahlungsverzug, Vertragsverletzung, Eigenbedarf)', 'Sfratto per Morosita oder Sfratto per Finita Locazione beantragen', 'Gerichtsvollzieher fuer die Raeumung beauftragen'] }
+        ]
+      }
+    };
+
+    let selectedCategory = null;
+    let selectedSub = null;
+
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      const data = QUIZ_DATA[cat];
+
+      // Build step 2 options
+      let html = '';
+      data.subs.forEach(function(sub) {
+        html += '<div class="quiz-option card-clickable" onclick="selectSub(\'' + sub.id + '\')">';
+        html += '<strong>' + sub.label + '</strong>';
+        html += '</div>';
+      });
+      document.getElementById('step2Options').innerHTML = html;
+
+      showStep(2);
+    }
+
+    function selectSub(subId) {
+      const data = QUIZ_DATA[selectedCategory];
+      selectedSub = data.subs.find(function(s) { return s.id === subId; });
+
+      // Build diagnosis
+      const urgencyClass = 'badge-' + selectedSub.urgency;
+      const urgencyLabel = selectedSub.urgency.charAt(0).toUpperCase() + selectedSub.urgency.slice(1);
+
+      let html = '<div class="result-card">';
+      html += '<h3>' + selectedSub.label + '</h3>';
+      html += '<p style="margin-bottom:12px;"><strong>Dringlichkeit:</strong> <span class="badge ' + urgencyClass + '">' + urgencyLabel + '</span></p>';
+      html += '<p style="color:var(--gray-700); margin-bottom:16px;">' + selectedSub.diagnosis + '</p>';
+      html += '<strong>Empfohlene Massnahmen:</strong>';
+      html += '<ul>';
+      selectedSub.actions.forEach(function(action) {
+        html += '<li>' + action + '</li>';
+      });
+      html += '</ul>';
+      html += '</div>';
+
+      document.getElementById('diagnosisResult').innerHTML = html;
+      showStep(3);
+    }
+
+    function showStep(n) {
+      document.querySelectorAll('.quiz-step').forEach(function(el) { el.classList.remove('active'); });
+      document.getElementById('step' + n).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goBack(step) {
+      showStep(step);
+    }
+
+    function restart() {
+      selectedCategory = null;
+      selectedSub = null;
+      showStep(1);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.insertAdjacentHTML('beforeend', getModalHTML());
+      initModal('problemloeser', function() {
+        return {
+          category: selectedCategory ? QUIZ_DATA[selectedCategory].label : '',
+          subcategory: selectedSub ? selectedSub.label : '',
+          urgency: selectedSub ? selectedSub.urgency : ''
+        };
+      });
+    });
+  </script>
+</body>
+</html>
