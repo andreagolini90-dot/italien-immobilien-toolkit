@@ -41,9 +41,10 @@
 
     body {
       font-family: 'Inter', sans-serif;
+      font-size: 18px;
       color: var(--text);
       background: var(--bg);
-      line-height: 1.6;
+      line-height: 1.7;
       margin: 0;
       padding: 0;
       -webkit-font-smoothing: antialiased;
@@ -55,9 +56,9 @@
     }
 
     .container {
-      max-width: 720px;
+      max-width: 860px;
       margin: 0 auto;
-      padding: 8px 16px 24px;
+      padding: 12px 24px 32px;
     }
 
     /* ============================================================
@@ -73,13 +74,13 @@
     .tab-btn {
       flex: 1;
       min-width: 0;
-      padding: 14px 8px;
+      padding: 18px 12px;
       background: transparent;
       border: none;
       border-bottom: 3px solid transparent;
       color: var(--text-muted);
       font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
@@ -100,7 +101,7 @@
     /* Tab content panels */
     .tab-panel {
       display: none;
-      padding-top: 32px;
+      padding-top: 36px;
       animation: fadeIn 0.3s ease;
     }
     .tab-panel.active {
@@ -109,30 +110,31 @@
 
     /* Form Elements */
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .form-group label {
       display: block;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--text);
-      margin-bottom: 6px;
-      font-size: 0.9rem;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
     }
     .form-group .help-text {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      line-height: 1.5;
     }
     .form-group input[type="number"],
     .form-group input[type="text"],
     .form-group input[type="email"],
     .form-group select {
       width: 100%;
-      padding: 10px 12px;
+      padding: 14px 16px;
       border: 1px solid rgba(255,255,255,0.3);
       border-radius: var(--radius);
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-family: 'Inter', sans-serif;
       background: rgba(255,255,255,0.1);
       color: var(--text);
@@ -161,14 +163,15 @@
     .radio-group label {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-weight: 400;
       cursor: pointer;
-      padding: 8px 16px;
+      padding: 12px 20px;
       border: 1px solid rgba(255,255,255,0.3);
       border-radius: var(--radius);
       transition: all 0.2s;
       color: var(--text);
+      font-size: 1.05rem;
     }
     .radio-group label:hover {
       border-color: var(--accent);
@@ -184,10 +187,10 @@
     /* Buttons */
     .btn {
       display: inline-block;
-      padding: 12px 28px;
+      padding: 16px 32px;
       border: none;
       border-radius: var(--radius);
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 700;
       font-family: 'Inter', sans-serif;
       cursor: pointer;
@@ -230,9 +233,9 @@
       animation: fadeIn 0.3s ease;
     }
     .results h2 {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       color: var(--text);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .results-table {
       width: 100%;
@@ -241,10 +244,10 @@
     }
     .results-table th,
     .results-table td {
-      padding: 12px 16px;
+      padding: 14px 18px;
       text-align: left;
       border-bottom: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       color: var(--text);
     }
     .results-table th {
@@ -262,8 +265,8 @@
     }
     .results-table .total-row td {
       border-bottom: none;
-      padding: 14px 16px;
-      font-size: 1.05rem;
+      padding: 16px 18px;
+      font-size: 1.15rem;
     }
 
     /* Cards */
@@ -271,8 +274,8 @@
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
       box-shadow: var(--shadow);
       transition: all 0.2s;
     }
@@ -308,10 +311,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px;
+      padding: 18px 20px;
       background: rgba(255,255,255,0.05);
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 1.05rem;
       color: var(--text);
       transition: background 0.2s;
     }
@@ -322,13 +326,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: var(--accent);
       color: var(--primary);
-      font-size: 0.85rem;
-      margin-right: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-right: 14px;
       flex-shrink: 0;
     }
     .accordion-header .arrow {
@@ -341,7 +346,7 @@
     }
     .accordion-body {
       display: none;
-      padding: 16px;
+      padding: 20px 24px;
       background: rgba(255,255,255,0.03);
     }
     .accordion-body p {
@@ -367,7 +372,7 @@
     }
     .checklist-item label {
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--text-muted);
     }
     .checklist-item input:checked + label {
@@ -395,12 +400,12 @@
       margin-top: 16px;
     }
     .quiz-option {
-      padding: 16px;
+      padding: 20px;
       border: 2px solid rgba(255,255,255,0.15);
       border-radius: var(--radius);
       cursor: pointer;
       transition: all 0.2s;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       color: var(--text);
       background: rgba(255,255,255,0.05);
     }
@@ -564,13 +569,13 @@
 
     /* Responsive */
     @media (max-width: 480px) {
-      .container { padding: 16px 12px; }
-      .hero h1 { font-size: 1.3rem; }
+      body { font-size: 16px; }
+      .container { padding: 8px 16px 24px; }
       .radio-group { flex-direction: column; }
-      .results-table th, .results-table td { padding: 8px 10px; font-size: 0.85rem; }
+      .results-table th, .results-table td { padding: 10px 12px; font-size: 0.95rem; }
       .modal { padding: 24px 16px; }
       .quiz-options { grid-template-columns: 1fr; }
-      .tab-btn { font-size: 0.75rem; padding: 12px 6px; }
+      .tab-btn { font-size: 0.85rem; padding: 14px 6px; }
     }
   </style>
 </head>
