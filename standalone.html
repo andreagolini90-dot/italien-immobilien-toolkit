@@ -1140,6 +1140,8 @@
         <div class="post-calc-cta" id="kr_postCta">
           <p>Moechten Sie diese Ergebnisse per E-Mail erhalten?</p>
           <button class="btn btn-outline" onclick="showLeadModal('kostenrechner')">Ergebnisse per E-Mail senden</button>
+          <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);">Sie haben Fragen zu den Kosten oder moechten eine individuelle Berechnung auf Basis des Katasterwerts?</p>
+          <a href="#tools" onclick="switchTab('kontakt')" style="color:var(--white); font-size:0.85rem; text-decoration:underline;">Kostenlose Erstberatung anfragen &rarr;</a>
         </div>
       </div>
     </div>
@@ -1191,6 +1193,8 @@
         <div class="post-calc-cta" id="sr_postCta">
           <p>Moechten Sie diese Ergebnisse per E-Mail erhalten?</p>
           <button class="btn btn-outline" onclick="showLeadModal('steuerrechner')">Ergebnisse per E-Mail senden</button>
+          <p style="margin-top:16px; font-size:0.85rem; color:var(--text-muted);">Moechten Sie pruefen, ob Sie Anspruch auf Steuervorteile haben?</p>
+          <a href="#tools" onclick="switchTab('kontakt')" style="color:var(--white); font-size:0.85rem; text-decoration:underline;">Kostenlose Erstberatung anfragen &rarr;</a>
         </div>
       </div>
 
@@ -1313,7 +1317,7 @@
 
         <!-- CTA after step 4 -->
         <div class="cta-inline">
-          <p>Ab hier empfehlen wir dringend eine anwaltliche Begleitung. Die folgenden Schritte sind rechtlich komplex und koennen bei Fehlern hohe Kosten verursachen.</p>
+          <p style="font-size:0.9rem;"><strong>Hinweis:</strong> Die folgenden Schritte (Vorvertrag, Notar, Uebergabe) sind rechtlich komplex. Viele unserer Klienten lassen sich ab diesem Punkt begleiten, um Fehler und unerwartete Kosten zu vermeiden.</p>
           <button class="btn btn-outline" onclick="switchTab('kontakt')">Unverbindlich anfragen</button>
         </div>
 
@@ -1395,6 +1399,12 @@
         </div>
 
       </div><!-- /#cl_checklist -->
+
+      <!-- CTA end of checklist -->
+      <div class="cta-inline" style="margin-top:32px;">
+        <p style="font-size:0.9rem;">Sie moechten sicherstellen, dass bei Ihrem Immobilienkauf alles korrekt laeuft? Wir begleiten Sie persoenlich — von der Due Diligence bis zur Schluesseluebergabe.</p>
+        <button class="btn btn-outline" onclick="switchTab('kontakt')">Kostenlose Erstberatung anfragen</button>
+      </div>
     </div>
 
     <!-- ============================================================
@@ -1444,7 +1454,6 @@
 
       <!-- Step 2: Urgency -->
       <div class="quiz-step" id="wiz_step2" style="display:none;">
-        <a href="#" onclick="event.preventDefault();wizBack(2)" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;display:inline-block;margin-bottom:12px;">&larr; Zurueck</a>
         <h2>Wie dringend ist Ihr Anliegen?</h2>
         <p>Dies hilft uns, die richtige Prioritaet fuer Ihre Anfrage zu setzen.</p>
         <div class="quiz-options">
@@ -1461,11 +1470,11 @@
             <span>Ich informiere mich vorab und plane langfristig.</span>
           </div>
         </div>
+        <a href="#" onclick="event.preventDefault();wizBack(2)" style="color:var(--white);font-size:0.85rem;text-decoration:none;display:inline-block;margin-top:20px;">&larr; Zurueck</a>
       </div>
 
       <!-- Step 3: Documents -->
       <div class="quiz-step" id="wiz_step3" style="display:none;">
-        <a href="#" onclick="event.preventDefault();wizBack(3)" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;display:inline-block;margin-bottom:12px;">&larr; Zurueck</a>
         <h2>Haben Sie bereits Unterlagen?</h2>
         <p>Dokumente wie Kaufvertrag, Visura Catastale, Grundbuchauszug etc.</p>
         <div class="quiz-options">
@@ -1482,11 +1491,11 @@
             <span>Ich habe noch keine Unterlagen oder weiss nicht, welche ich brauche.</span>
           </div>
         </div>
+        <a href="#" onclick="event.preventDefault();wizBack(3)" style="color:var(--white);font-size:0.85rem;text-decoration:none;display:inline-block;margin-top:20px;">&larr; Zurueck</a>
       </div>
 
       <!-- Step 4: Contact Form -->
       <div class="quiz-step" id="wiz_step4" style="display:none;">
-        <a href="#" onclick="event.preventDefault();wizBack(4)" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;display:inline-block;margin-bottom:12px;">&larr; Zurueck</a>
         <h2 style="margin-bottom:8px;">Fast geschafft — Ihre Kontaktdaten</h2>
         <p style="color:var(--text-muted); margin-bottom:24px;">Wir melden uns innerhalb von 48 Stunden bei Ihnen — kostenlos und unverbindlich.</p>
 
@@ -1580,6 +1589,9 @@
 
           <div id="kf_error" class="error-msg" style="text-align:center; margin-bottom:12px;"></div>
           <button type="button" class="btn btn-primary btn-block" id="kf_submitBtn" onclick="submitKontaktForm()">Anfrage senden</button>
+          <div style="text-align:center; margin-top:12px;">
+            <a href="#" onclick="event.preventDefault();wizBack(4)" style="color:var(--white);font-size:0.85rem;text-decoration:none;">&larr; Zurueck</a>
+          </div>
         </form>
 
         <div id="kf_success" class="success-msg" style="margin-top:24px;">
