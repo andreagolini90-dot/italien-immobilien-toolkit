@@ -1444,6 +1444,7 @@
 
       <!-- Step 2: Urgency -->
       <div class="quiz-step" id="wiz_step2" style="display:none;">
+        <a href="#" onclick="event.preventDefault();wizBack(2)" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;display:inline-block;margin-bottom:12px;">&larr; Zurueck</a>
         <h2>Wie dringend ist Ihr Anliegen?</h2>
         <p>Dies hilft uns, die richtige Prioritaet fuer Ihre Anfrage zu setzen.</p>
         <div class="quiz-options">
@@ -1464,6 +1465,7 @@
 
       <!-- Step 3: Documents -->
       <div class="quiz-step" id="wiz_step3" style="display:none;">
+        <a href="#" onclick="event.preventDefault();wizBack(3)" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;display:inline-block;margin-bottom:12px;">&larr; Zurueck</a>
         <h2>Haben Sie bereits Unterlagen?</h2>
         <p>Dokumente wie Kaufvertrag, Visura Catastale, Grundbuchauszug etc.</p>
         <div class="quiz-options">
@@ -1484,6 +1486,7 @@
 
       <!-- Step 4: Contact Form -->
       <div class="quiz-step" id="wiz_step4" style="display:none;">
+        <a href="#" onclick="event.preventDefault();wizBack(4)" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;display:inline-block;margin-bottom:12px;">&larr; Zurueck</a>
         <h2 style="margin-bottom:8px;">Fast geschafft — Ihre Kontaktdaten</h2>
         <p style="color:var(--text-muted); margin-bottom:24px;">Wir melden uns innerhalb von 48 Stunden bei Ihnen — kostenlos und unverbindlich.</p>
 
@@ -2056,6 +2059,24 @@
       if (hint) {
         hint.style.display = (wizData.unterlagen === 'ja' || wizData.unterlagen === 'teilweise') ? 'block' : 'none';
       }
+    }
+
+    function wizBack(fromStep) {
+      var toStep = fromStep - 1;
+      if (toStep < 1) return;
+      var current = document.getElementById('wiz_step' + fromStep);
+      var prev = document.getElementById('wiz_step' + toStep);
+      current.style.display = 'none';
+      current.className = 'quiz-step';
+      prev.style.display = '';
+      prev.className = 'quiz-step active';
+      // Clear the selection data for the current step
+      if (fromStep === 2) wizData.dringlichkeit = '';
+      if (fromStep === 3) wizData.unterlagen = '';
+      if (fromStep === 4) { wizData.unterlagen = ''; }
+      // Remove selected state from current step options
+      current.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected'); });
+      wizUpdateDots(toStep);
     }
 
     function wizReset() {
