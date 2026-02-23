@@ -1559,6 +1559,10 @@
             <textarea id="kf_beschreibung" placeholder="Beschreiben Sie kurz Ihre Situation..."></textarea>
           </div>
 
+          <div id="kf_unterlagen_hint" style="display:none; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:14px 18px; margin-bottom:16px;">
+            <p style="margin:0; font-size:0.85rem; color:var(--text-muted);"><strong style="color:var(--white);">Unterlagen senden:</strong> Bitte senden Sie Ihre Dokumente nach dem Absenden per E-Mail an <a href="mailto:info@avvocatogolini.it" style="color:var(--white); text-decoration:underline;">info@avvocatogolini.it</a> — wir melden uns umgehend.</p>
+          </div>
+
           <div class="gdpr-check">
             <input type="checkbox" id="kf_dsgvo" required>
             <label for="kf_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten gemaess der <a href="#" onclick="event.preventDefault();alert('Die vollstaendige Datenschutzerklaerung finden Sie unter www.italienischeranwalt.com');" style="color:var(--white);cursor:pointer;">Datenschutzerklaerung</a> zu. Meine Daten werden ausschliesslich zur Bearbeitung meiner Anfrage verwendet. *</label>
@@ -2039,6 +2043,10 @@
         '</h3>';
       html += '<p style="margin-top:8px;">Unterlagen: ' + ({ja:'Vorhanden',teilweise:'Teilweise',nein:'Nicht vorhanden'}[wizData.unterlagen] || '-') + '</p>';
       document.getElementById('wiz_summary').innerHTML = html;
+      var hint = document.getElementById('kf_unterlagen_hint');
+      if (hint) {
+        hint.style.display = (wizData.unterlagen === 'ja' || wizData.unterlagen === 'teilweise') ? 'block' : 'none';
+      }
     }
 
     function wizReset() {
