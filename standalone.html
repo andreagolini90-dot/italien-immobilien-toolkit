@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rechner &amp; Tools — Studio Legale Golini</title>
+  <meta name="description" content="Kostenrechner, Steuerrechner, interaktive Checkliste, Problemloeser und Kontaktformular fuer Ihren Immobilienkauf in Italien. Kostenlos, auf Deutsch, von einem italienischen Anwalt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+       ============================================================ */
+    :root {
+      --primary: #3A4359;
+      --primary-light: #4d5570;
+      --primary-dark: #2d3447;
+      --accent: #ffffff;
+      --accent-hover: #e0e0e0;
+      --white: #ffffff;
+      --bg: #3A4359;
+      --bg-light: #454d66;
+      --gray-50: #F9FAFB;
+      --gray-100: #f3f4f6;
+      --gray-200: rgba(255,255,255,0.15);
+      --gray-300: rgba(255,255,255,0.25);
+      --gray-500: rgba(255,255,255,0.7);
+      --gray-700: rgba(255,255,255,0.85);
+      --gray-900: #1F1F1F;
+      --text: #ffffff;
+      --text-muted: rgba(255,255,255,0.7);
+      --red: #dc2626;
+      --green: #16a34a;
+      --orange: #ea580c;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.12);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.2), 0 4px 6px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+    }
+
+    /* ============================================================
+       HEADER (sticky)
+       ============================================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--primary-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0 24px;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .header-logo-img {
+      height: 44px;
+      width: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .header-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+    }
+    .header-logo-text span {
+      font-weight: 400;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      opacity: 0.7;
+      display: block;
+      line-height: 1.2;
+    }
+    .header-nav {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .header-nav a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .header-nav a:hover,
+    .header-nav a.active {
+      color: var(--white);
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero-section {
+      text-align: center;
+      padding: 64px 24px 56px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero-section h1 {
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+    .hero-section p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .hero-section .btn {
+      font-size: 1.1rem;
+      padding: 16px 40px;
+    }
+
+    /* ============================================================
+       MAIN CONTAINER
+       ============================================================ */
+    .main-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+    }
+
+    /* ============================================================
+       TAB NAVIGATION
+       ============================================================ */
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0;
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px 8px 0 0;
+    }
+    .tab-btn {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 18px 16px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-muted);
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      margin-bottom: -2px;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+    }
+    .tab-btn.active {
+      color: var(--text);
+      border-bottom-color: var(--white);
+      background: rgba(255,255,255,0.08);
+    }
+    .tab-panel {
+      display: none;
+      padding: 36px 0;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ============================================================
+       FORM ELEMENTS
+       ============================================================ */
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+    .form-group .help-text {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .form-group input[type="number"],
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-family: 'Cinzel', serif;
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .form-group select option {
+      background: var(--primary);
+      color: var(--text);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.2);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Radio Group */
+    .radio-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 12px 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius);
+      transition: all 0.2s;
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .radio-group label:hover {
+      border-color: var(--accent);
+    }
+    .radio-group input[type="radio"] {
+      accent-color: var(--accent);
+    }
+    .radio-group input[type="radio"]:checked + span {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--white);
+      color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: var(--primary);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+    }
+    .btn-outline:hover {
+      background: var(--white);
+      color: var(--primary);
+    }
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* ============================================================
+       RESULTS TABLE
+       ============================================================ */
+    .results {
+      margin-top: 32px;
+      animation: fadeIn 0.3s ease;
+    }
+    .results h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+    .results-table th,
+    .results-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .results-table th {
+      background: rgba(255,255,255,0.08);
+      font-weight: 700;
+    }
+    .results-table tr:last-child td {
+      border-bottom: none;
+    }
+    .results-table .total-row {
+      background: rgba(255,255,255,0.15);
+      font-weight: 700;
+    }
+    .results-table .total-row td {
+      border-bottom: none;
+      font-size: 1.05rem;
+    }
+
+    /* ============================================================
+       CARDS
+       ============================================================ */
+    .card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      background: rgba(255,255,255,0.12);
+    }
+    .card h3 { color: var(--text) !important; }
+    .card p { color: var(--text-muted) !important; }
+
+    /* ============================================================
+       ACCORDION
+       ============================================================ */
+    .accordion-item {
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.05);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      transition: background 0.2s;
+    }
+    .accordion-header:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .accordion-header .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    .accordion-header .step-number.completed {
+      background: var(--green);
+      color: var(--white);
+    }
+    .accordion-header .arrow {
+      transition: transform 0.2s;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .accordion-item.open .accordion-header .arrow {
+      transform: rotate(180deg);
+    }
+    .accordion-body {
+      display: none;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.03);
+    }
+    .accordion-body p {
+      color: var(--text-muted) !important;
+    }
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* ============================================================
+       CHECKLIST (interactive checkboxes)
+       ============================================================ */
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+    }
+    .checklist-item input[type="checkbox"] {
+      margin-top: 4px;
+      accent-color: var(--green);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .checklist-item label {
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .checklist-item input:checked + label {
+      text-decoration: line-through;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      margin-bottom: 24px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+    }
+    .progress-bar-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .progress-bar-label strong {
+      color: var(--text);
+    }
+    .progress-bar-track {
+      height: 8px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* CTA inline */
+    .cta-inline {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 16px 0;
+      text-align: center;
+    }
+    .cta-inline p {
+      color: var(--text-muted) !important;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    /* ============================================================
+       QUIZ (Problemloeser)
+       ============================================================ */
+    .quiz-step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .quiz-step.active {
+      display: block;
+    }
+    .quiz-step h2 {
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .quiz-step p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .quiz-options {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .quiz-option {
+      padding: 18px 20px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+    }
+    .quiz-option strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .quiz-option span {
+      color: var(--text-muted) !important;
+      font-size: 0.9rem;
+    }
+    .quiz-option:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.1);
+    }
+    .quiz-option.selected {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.15);
+    }
+    .quiz-progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .quiz-progress-dot {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.15);
+    }
+    .quiz-progress-dot.active {
+      background: var(--white);
+    }
+    .quiz-progress-dot.done {
+      background: var(--green);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .badge-hoch { background: rgba(220,38,38,0.25); color: #fca5a5; border: 1px solid rgba(220,38,38,0.4); }
+    .badge-mittel { background: rgba(234,88,12,0.25); color: #fdba74; border: 1px solid rgba(234,88,12,0.4); }
+    .badge-niedrig { background: rgba(22,163,74,0.25); color: #86efac; border: 1px solid rgba(22,163,74,0.4); }
+
+    /* Result Card */
+    .result-card {
+      background: rgba(255,255,255,0.08);
+      border-left: 4px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .result-card h3 { color: var(--text); margin-bottom: 12px; }
+    .result-card p { color: var(--text-muted); }
+    .result-card ul { margin: 12px 0; padding-left: 20px; }
+    .result-card li { margin-bottom: 6px; color: var(--text-muted); }
+
+    /* ============================================================
+       LEAD CAPTURE MODAL
+       ============================================================ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal {
+      background: var(--primary);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .modal h3 { color: var(--text); margin-bottom: 8px; font-size: 1.15rem; }
+    .modal p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+    .modal-close {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    .gdpr-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 16px 0 20px;
+    }
+    .gdpr-check input {
+      margin-top: 3px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+    .gdpr-check label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 24px;
+    }
+    .success-msg .checkmark { font-size: 3rem; margin-bottom: 12px; color: var(--green); }
+    .success-msg h3 { color: var(--green); }
+    .success-msg p { color: var(--text-muted); }
+
+    /* ============================================================
+       CTA POST-CALCOLO
+       ============================================================ */
+    .post-calc-cta {
+      text-align: center;
+      padding: 24px;
+      margin-top: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px dashed rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+    }
+    .post-calc-cta p {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* ============================================================
+       LEAD MAGNET SECTION
+       ============================================================ */
+    .lead-magnet-section {
+      background: rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding: 56px 24px;
+      margin-top: 48px;
+      text-align: center;
+    }
+    .lead-magnet-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .lead-magnet-section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    .lead-magnet-section .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-size: 1rem;
+    }
+    .lead-magnet-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .lead-magnet-form input {
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-family: 'Cinzel', serif;
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+    }
+    .lead-magnet-form input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .lead-magnet-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.2);
+    }
+
+    /* ============================================================
+       TRUST SECTION
+       ============================================================ */
+    .trust-section {
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .trust-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 36px;
+    }
+    .trust-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+    }
+    .trust-point {
+      padding: 24px 16px;
+    }
+    .trust-point .trust-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+    .trust-point h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .trust-point p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .trust-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .trust-stat .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--white);
+      display: block;
+    }
+    .trust-stat .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ============================================================
+       DISCLAIMER & FOOTER
+       ============================================================ */
+    .disclaimer-section {
+      padding: 32px 24px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .disclaimer-section p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+    .site-footer {
+      background: var(--primary-dark);
+      padding: 48px 24px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .footer-main {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+      padding-bottom: 40px;
+    }
+    .footer-left {
+      flex: 1;
+    }
+    .footer-right {
+      flex: 1;
+      text-align: center;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .footer-logo img {
+      height: 56px;
+      width: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .footer-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .footer-contact-item .footer-icon {
+      flex-shrink: 0;
+      width: 20px;
+      text-align: center;
+      margin-top: 2px;
+      opacity: 0.7;
+    }
+    .footer-contact-item strong {
+      color: var(--white);
+      display: block;
+      font-size: 0.9rem;
+    }
+    .footer-cta-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 32px;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .footer-cta-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.6);
+    }
+    .footer-links {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 16px 0;
+    }
+    .footer-social a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    .footer-social a:hover { color: var(--white); }
+    .footer-bottom {
+      text-align: center;
+      padding: 24px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-bottom p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+    .footer-bottom a {
+      color: var(--white);
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .footer-main {
+        flex-direction: column;
+        gap: 32px;
+      }
+      .footer-right {
+        text-align: center;
+      }
+    }
+
+    /* ============================================================
+       ERROR
+       ============================================================ */
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    #sr_exemptNote {
+      background: rgba(22,163,74,0.15) !important;
+      color: var(--green) !important;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    #sr_exemptNote strong { color: var(--green); }
+
+    /* ============================================================
+       ANIMATIONS
+       ============================================================ */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 768px) {
+      .header-nav { display: none; }
+      .header-nav.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: var(--primary-dark);
+        padding: 16px 24px;
+        gap: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      .mobile-menu-btn { display: block; }
+      .hero-section h1 { font-size: 1.6rem; }
+      .hero-section { padding: 40px 16px 32px; }
+      .trust-points { grid-template-columns: 1fr; gap: 16px; }
+      .trust-stats { gap: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .main-container { padding: 0 12px 28px; }
+      .tab-nav { flex-wrap: wrap; }
+      .tab-btn { flex: 1 1 30%; font-size: 0.85rem; padding: 14px 6px; }
+      .form-group label { font-size: 0.95rem; }
+      .form-group input[type="number"],
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="tel"],
+      .form-group select,
+      .form-group textarea { font-size: 0.95rem; padding: 12px 14px; }
+      .radio-group { flex-direction: column; }
+      .radio-group label { font-size: 0.95rem; padding: 12px 16px; }
+      .btn { font-size: 1rem; padding: 14px 24px; }
+      .results-table { table-layout: fixed; }
+      .results-table th, .results-table td { padding: 10px 8px; font-size: 0.85rem; word-break: break-word; }
+      .accordion-header { font-size: 0.95rem; padding: 14px 16px; }
+      .quiz-options { grid-template-columns: 1fr; }
+      .modal { padding: 24px 16px; }
+      .lead-magnet-section { padding: 40px 16px; }
+      .trust-section { padding: 40px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       1. HEADER
+       ============================================================ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="header-logo">
+        <img src="logo.png" alt="Studio Legale Golini" class="header-logo-img">
+        <div class="header-logo-text">Studio Legale Golini<span>Ihr Anwalt fuer Italien</span></div>
+      </a>
+      <button class="mobile-menu-btn" onclick="document.querySelector('.header-nav').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+      <nav class="header-nav">
+        <a href="#tools">Rechner &amp; Tools</a>
+        <a href="#tools" onclick="switchTab('kontakt')">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       2. HERO
+       ============================================================ -->
+  <section id="hero" class="hero-section">
+    <h1>Der kostenlose Werkzeugkasten fuer Ihren Immobilienkauf in Italien</h1>
+    <p>Berechnen Sie Kaufnebenkosten, pruefen Sie Steuern, verfolgen Sie Ihren Fortschritt und erhalten Sie eine persoenliche Problemanalyse — entwickelt von einem italienischen Anwalt mit ueber 20 Jahren Erfahrung.</p>
+    <a href="#tools" class="btn btn-primary">Jetzt starten</a>
+  </section>
+
+  <!-- ============================================================
+       3. TOOL TABS
+       ============================================================ -->
+  <div class="main-container" id="tools">
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('kostenrechner')" id="tabBtn_kostenrechner">Kosten</button>
+      <button class="tab-btn" onclick="switchTab('steuerrechner')" id="tabBtn_steuerrechner">Steuern</button>
+      <button class="tab-btn" onclick="switchTab('checkliste')" id="tabBtn_checkliste">Checkliste</button>
+      <button class="tab-btn" onclick="switchTab('kontakt')" id="tabBtn_kontakt">Kontakt</button>
+    </div>
+
+    <!-- ============================================================
+         3a. KOSTENRECHNER
+         ============================================================ -->
+    <div id="panel_kostenrechner" class="tab-panel active">
+      <form id="kr_calcForm" onsubmit="return false;">
+        <div class="form-group">
+          <label for="kr_kaufpreis">Kaufpreis (EUR)</label>
+          <input type="number" id="kr_kaufpreis" placeholder="z.B. 250000" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="kr_immobilientyp">Immobilientyp</label>
+          <select id="kr_immobilientyp" required>
+            <option value="">-- Bitte waehlen --</option>
+            <option value="erstwohnsitz">Erstwohnsitz (Prima Casa)</option>
+            <option value="zweitwohnsitz">Zweitwohnsitz (Seconda Casa)</option>
+            <option value="gewerbe">Gewerbeimmobilie</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="kr_region">Region</label>
+          <select id="kr_region" required>
+            <option value="">-- Bitte waehlen --</option>
+            <option value="abruzzen">Abruzzen</option>
+            <option value="aostatal">Aostatal</option>
+            <option value="apulien">Apulien</option>
+            <option value="basilikata">Basilikata</option>
+            <option value="emilia-romagna">Emilia-Romagna</option>
+            <option value="friaul">Friaul-Julisch Venetien</option>
+            <option value="kalabrien">Kalabrien</option>
+            <option value="kampanien">Kampanien</option>
+            <option value="latium">Latium</option>
+            <option value="ligurien">Ligurien</option>
+            <option value="lombardei">Lombardei</option>
+            <option value="marken">Marken</option>
+            <option value="molise">Molise</option>
+            <option value="piemont">Piemont</option>
+            <option value="sardinien">Sardinien</option>
+            <option value="sizilien">Sizilien</option>
+            <option value="suedtirol">Suedtirol-Trentino</option>
+            <option value="toskana">Toskana</option>
+            <option value="umbrien">Umbrien</option>
+            <option value="venetien">Venetien</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Kauferstatus</label>
+          <div class="radio-group">
+            <label><input type="radio" name="kr_status" value="eu" required> <span>EU-Buerger</span></label>
+            <label><input type="radio" name="kr_status" value="nicht-eu"> <span>Nicht-EU-Buerger</span></label>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" onclick="krCalculate()">Kosten berechnen</button>
+        <div id="kr_formError" class="error-msg" style="text-align:center; margin-top:8px;"></div>
+      </form>
+
+      <div id="kr_results" class="results" style="display:none;">
+        <h2>Ihre Kostenaufstellung</h2>
+        <table class="results-table">
+          <thead><tr><th>Kostenart</th><th>Satz</th><th>Betrag</th></tr></thead>
+          <tbody id="kr_resultsBody"></tbody>
+        </table>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:20px; font-style:italic;">
+          Hinweis: Die Registersteuer wird in Italien auf den Katasterwert (Valore Catastale) berechnet, der in der Regel deutlich unter dem Kaufpreis liegt. Diese Berechnung basiert auf dem Kaufpreis und stellt daher eine konservative Schaetzung (Maximalwert) dar. Fuer eine praezise Berechnung empfehlen wir eine individuelle Analyse.
+        </p>
+        <div class="post-calc-cta" id="kr_postCta">
+          <p>Moechten Sie diese Ergebnisse per E-Mail erhalten?</p>
+          <button class="btn btn-outline" onclick="showLeadModal('kostenrechner')">Ergebnisse per E-Mail senden</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         3b. STEUERRECHNER
+         ============================================================ -->
+    <div id="panel_steuerrechner" class="tab-panel">
+      <form id="sr_taxForm" onsubmit="return false;">
+        <div class="form-group">
+          <label for="sr_rendita">Katasterertrag / Rendita Catastale (EUR)</label>
+          <span class="help-text">Den Katasterertrag finden Sie im Kaufvertrag oder in der Katasterbescheinigung (Visura Catastale). Falls unbekannt, schaetzen Sie ca. 500 EUR fuer eine Wohnung.</span>
+          <input type="number" id="sr_rendita" placeholder="z.B. 500" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="sr_immobilientyp">Immobilientyp</label>
+          <select id="sr_immobilientyp" required>
+            <option value="">-- Bitte waehlen --</option>
+            <option value="wohnung">Wohnung</option>
+            <option value="haus">Haus</option>
+            <option value="gewerbe">Gewerbeimmobilie</option>
+            <option value="grundstueck">Grundstueck</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ist dies Ihr Erstwohnsitz in Italien?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="sr_erstwohnsitz" value="ja" required> <span>Ja</span></label>
+            <label><input type="radio" name="sr_erstwohnsitz" value="nein"> <span>Nein</span></label>
+          </div>
+          <span class="help-text" style="margin-top:6px;">Erstwohnsitz (Residenza): Sie sind in der Gemeinde gemeldet und leben dort ueberwiegend.</span>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" onclick="srCalculateTax()">Steuern berechnen</button>
+        <div id="sr_formError" class="error-msg" style="text-align:center; margin-top:8px;"></div>
+      </form>
+
+      <div id="sr_results" class="results" style="display:none;">
+        <h2>Ihre jaehrliche Steuerbelastung</h2>
+        <table class="results-table">
+          <thead><tr><th>Steuerart</th><th>Details</th><th>Betrag / Jahr</th></tr></thead>
+          <tbody id="sr_resultsBody"></tbody>
+        </table>
+        <div id="sr_exemptNote" style="display:none;">
+          <strong>Hinweis:</strong> Als Erstwohnsitz (Prima Casa) ist Ihre Immobilie von der IMU befreit.
+        </div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:20px; font-style:italic;">
+          Hinweis: Rentner mit Wohnsitz im Ausland, die eine in internationaler Konvention gereifte Rente beziehen, erhalten eine Ermaessigung von 50% auf die IMU fuer eine nicht vermietete Immobilie in Italien. Die TARI variiert je nach Gemeinde &mdash; die angegebenen Werte sind Richtwerte. Fuer eine praezise Berechnung empfehlen wir eine individuelle Analyse.
+        </p>
+        <div class="post-calc-cta" id="sr_postCta">
+          <p>Moechten Sie diese Ergebnisse per E-Mail erhalten?</p>
+          <button class="btn btn-outline" onclick="showLeadModal('steuerrechner')">Ergebnisse per E-Mail senden</button>
+        </div>
+      </div>
+
+      <!-- Agevolazioni Fiscali -->
+      <div style="margin-top:40px; padding-top:32px; border-top:2px solid rgba(255,255,255,0.3);">
+        <h2 style="color:var(--text); margin-bottom:20px;">Steuervorteile fuer Zuwanderer nach Italien</h2>
+        <p style="color:var(--text-muted); margin-bottom:24px;">Italien bietet attraktive Steuervorteile fuer Personen, die ihren Wohnsitz nach Italien verlegen. Pruefen Sie, ob Sie berechtigt sind:</p>
+        <div class="card" style="margin-bottom:16px;">
+          <h3 style="margin-bottom:8px;">Flat Tax 7% fuer Rentner</h3>
+          <p style="margin-bottom:8px;">Pauschalsteuer von nur <strong style="color:var(--text);">7%</strong> auf alle auslaendischen Einkuenfte fuer <strong style="color:var(--text);">10 Jahre</strong>.</p>
+          <ul style="color:var(--text-muted); padding-left:20px; font-size:0.9rem;">
+            <li>Fuer Rentner mit auslaendischer Rente</li>
+            <li>Wohnsitz in Sueditalien (Gemeinde unter 20.000 Einwohner)</li>
+            <li>Regionen: Sizilien, Kalabrien, Sardinien, Kampanien, Basilikata, Abruzzen, Molise, Apulien</li>
+            <li>Nicht in Italien steuerlich ansaessig in den letzten 5 Jahren</li>
+            <li>Befreiung von IVIE und IVAFE Vermoegenssteuer</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <h3 style="margin-bottom:8px;">Regime Impatriati fuer Arbeitnehmer</h3>
+          <p style="margin-bottom:8px;">Steuerbefreiung von <strong style="color:var(--text);">50%</strong> des Einkommens (60% mit Kindern) fuer <strong style="color:var(--text);">5 Jahre</strong>.</p>
+          <ul style="color:var(--text-muted); padding-left:20px; font-size:0.9rem;">
+            <li>Fuer qualifizierte Arbeitnehmer und Selbstaendige</li>
+            <li>Maximal 600.000 EUR beguenstigtes Einkommen pro Jahr</li>
+            <li>Nicht in Italien steuerlich ansaessig in den letzten 3 Jahren</li>
+            <li>Verpflichtung, mindestens 4 Jahre in Italien zu bleiben</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <h3 style="margin-bottom:8px;">Flat Tax fuer vermoeegende Neuzuziehende (ab 2026)</h3>
+          <p style="margin-bottom:8px;">Pauschalsteuer von <strong style="color:var(--text);">300.000 EUR/Jahr</strong> auf saemtliche auslaendische Einkuenfte.</p>
+          <ul style="color:var(--text-muted); padding-left:20px; font-size:0.9rem;">
+            <li>Fuer Personen mit hohem Vermoegen und Auslandseinkuenften</li>
+            <li>Nicht in Italien steuerlich ansaessig in 9 der letzten 10 Jahre</li>
+            <li>Zusaetzlich 50.000 EUR pro Familienmitglied</li>
+            <li>Italienische Einkuenfte werden normal besteuert</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         3c. CHECKLISTE (interactive)
+         ============================================================ -->
+    <div id="panel_checkliste" class="tab-panel">
+
+      <h2 style="margin-bottom:8px;">Ihre persoenliche Kaufcheckliste</h2>
+      <p style="color:var(--text-muted); margin-bottom:24px;">Verfolgen Sie Ihren Fortschritt beim Immobilienkauf in Italien. Haken Sie jeden Punkt ab, sobald er erledigt ist — Ihr Fortschritt wird automatisch gespeichert und bleibt auch beim naechsten Besuch erhalten.</p>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-label">
+          <span>Ihr Fortschritt</span>
+          <strong id="cl_progressText">0 / 9 Schritte abgeschlossen</strong>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="cl_progressBar"></div>
+        </div>
+      </div>
+
+      <div id="cl_checklist">
+
+        <!-- Step 1 -->
+        <div class="accordion-item" data-step="1">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step1_num">1</span> Steuernummer (Codice Fiscale) beantragen</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Die italienische Steuernummer ist Voraussetzung fuer jeden Immobilienkauf. Sie koennen sie beim italienischen Konsulat oder direkt bei der Agentur der Einnahmen (Agenzia delle Entrate) beantragen.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_1_1" onchange="clUpdateProgress()"><label for="cl_1_1">Gueltigen Reisepass oder Personalausweis bereithalten</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_1_2" onchange="clUpdateProgress()"><label for="cl_1_2">Antrag beim italienischen Konsulat oder online stellen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_1_3" onchange="clUpdateProgress()"><label for="cl_1_3">Codice Fiscale erhalten und sicher aufbewahren</label></div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="accordion-item" data-step="2">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step2_num">2</span> Italienisches Bankkonto eroeffnen</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Ein italienisches Bankkonto erleichtert die Zahlungsabwicklung erheblich. Viele Banken bieten Konten fuer Nichtresidenten an.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_2_1" onchange="clUpdateProgress()"><label for="cl_2_1">Bank mit Erfahrung fuer auslaendische Kunden waehlen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_2_2" onchange="clUpdateProgress()"><label for="cl_2_2">Conto Corrente per Non Residenti eroeffnen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_2_3" onchange="clUpdateProgress()"><label for="cl_2_3">IBAN fuer Ueberweisungen bereithalten</label></div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="accordion-item" data-step="3">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step3_num">3</span> Immobilie suchen und besichtigen</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Nehmen Sie sich ausreichend Zeit fuer die Suche. Nutzen Sie lokale Agenturen und Online-Portale. Besichtigen Sie die Immobilie persoenlich.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_3_1" onchange="clUpdateProgress()"><label for="cl_3_1">Immobilienagentur mit Ortskenntnis beauftragen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_3_2" onchange="clUpdateProgress()"><label for="cl_3_2">Online-Portale durchsuchen (Immobiliare.it, Idealista)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_3_3" onchange="clUpdateProgress()"><label for="cl_3_3">Persoenliche Besichtigung durchfuehren</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_3_4" onchange="clUpdateProgress()"><label for="cl_3_4">Umgebung und Infrastruktur pruefen</label></div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="accordion-item" data-step="4">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step4_num">4</span> Rechtliche Pruefung (Due Diligence)</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Dies ist der wichtigste Schritt. Ein Anwalt prueft alle rechtlichen Aspekte der Immobilie, bevor Sie kaufen. Ueberspringen Sie diesen Schritt niemals.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_4_1" onchange="clUpdateProgress()"><label for="cl_4_1">Katasterauszug (Visura Catastale) anfordern</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_4_2" onchange="clUpdateProgress()"><label for="cl_4_2">Baukonformitaet pruefen (Conformita Urbanistica)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_4_3" onchange="clUpdateProgress()"><label for="cl_4_3">Grundbuchauszug auf Belastungen pruefen (Ipoteche)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_4_4" onchange="clUpdateProgress()"><label for="cl_4_4">Energieausweis (APE) vorhanden?</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_4_5" onchange="clUpdateProgress()"><label for="cl_4_5">Eventuellen Bauverstoss (Abuso Edilizio) ausschliessen</label></div>
+          </div>
+        </div>
+
+        <!-- CTA after step 4 -->
+        <div class="cta-inline">
+          <p>Ab hier empfehlen wir dringend eine anwaltliche Begleitung. Die folgenden Schritte sind rechtlich komplex und koennen bei Fehlern hohe Kosten verursachen.</p>
+          <button class="btn btn-outline" onclick="switchTab('kontakt')">Unverbindlich anfragen</button>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="accordion-item" data-step="5">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step5_num">5</span> Vorvertrag (Compromesso) unterzeichnen</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Der Vorvertrag (Contratto Preliminare) ist bindend. Er legt Preis, Bedingungen und Fristen fest. Ueblich ist eine Anzahlung von 10-30% des Kaufpreises.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_5_1" onchange="clUpdateProgress()"><label for="cl_5_1">Vertragsbedingungen mit Anwalt pruefen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_5_2" onchange="clUpdateProgress()"><label for="cl_5_2">Anzahlung (Caparra) vereinbaren und ueberweisen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_5_3" onchange="clUpdateProgress()"><label for="cl_5_3">Frist fuer Notarvertrag (Rogito) festlegen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_5_4" onchange="clUpdateProgress()"><label for="cl_5_4">Aufschiebende Bedingungen einbauen (falls noetig)</label></div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="accordion-item" data-step="6">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step6_num">6</span> Notarvertrag (Rogito) abschliessen</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Der Rogito ist der endgueltige Kaufvertrag vor dem Notar. An diesem Tag wird die Immobilie offiziell uebertragen und die Restzahlung geleistet.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_6_1" onchange="clUpdateProgress()"><label for="cl_6_1">Notar auswaehlen (Kaeufer hat das Wahlrecht)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_6_2" onchange="clUpdateProgress()"><label for="cl_6_2">Vereidigten Dolmetscher organisieren (falls kein Italienisch)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_6_3" onchange="clUpdateProgress()"><label for="cl_6_3">Restkaufpreis per Bankueberweisung bereitstellen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_6_4" onchange="clUpdateProgress()"><label for="cl_6_4">Steuern und Notargebuehren zahlen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_6_5" onchange="clUpdateProgress()"><label for="cl_6_5">Schluessel erhalten</label></div>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="accordion-item" data-step="7">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step7_num">7</span> Eigentuemerwechsel (Voltura) eintragen</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Nach dem Rogito muss der Eigentuemerwechsel beim Katasteramt und bei der Gemeinde eingetragen werden. Dies uebernimmt in der Regel der Notar.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_7_1" onchange="clUpdateProgress()"><label for="cl_7_1">Voltura Catastale beim Katasteramt (durch Notar)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_7_2" onchange="clUpdateProgress()"><label for="cl_7_2">Eintragung beim Grundbuchamt (Conservatoria)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_7_3" onchange="clUpdateProgress()"><label for="cl_7_3">Gemeinde ueber Eigentuemerwechsel informieren</label></div>
+          </div>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="accordion-item" data-step="8">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step8_num">8</span> Steuervorteile pruefen</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Italien bietet erhebliche Steuervorteile fuer Personen, die ihren Wohnsitz verlegen. Pruefen Sie vor dem Kauf, ob Sie berechtigt sind &mdash; dies kann die Gesamtkosten drastisch senken.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_8_1" onchange="clUpdateProgress()"><label for="cl_8_1"><strong>Rentner:</strong> Flat Tax 7% auf alle Auslandseinkuenfte fuer 10 Jahre</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_8_2" onchange="clUpdateProgress()"><label for="cl_8_2"><strong>Arbeitnehmer:</strong> Regime Impatriati — 50-60% Steuerbefreiung fuer 5 Jahre</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_8_3" onchange="clUpdateProgress()"><label for="cl_8_3"><strong>Vermoeegende:</strong> Flat Tax 300.000 EUR/Jahr auf alle Auslandseinkuenfte (ab 2026)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_8_4" onchange="clUpdateProgress()"><label for="cl_8_4">Prima-Casa-Verguenstigung pruefen (2% statt 9% Registersteuer)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_8_5" onchange="clUpdateProgress()"><label for="cl_8_5">Steuerberater zu Doppelbesteuerungsabkommen DE-AT-CH/Italien konsultieren</label></div>
+          </div>
+        </div>
+
+        <!-- Step 9 -->
+        <div class="accordion-item" data-step="9">
+          <div class="accordion-header" onclick="clToggleAccordion(this)">
+            <div><span class="step-number" id="cl_step9_num">9</span> Nach dem Kauf: Vertraege und Steuern</div>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px; color:var(--gray-700);">Richten Sie die Versorgungsvertraege auf Ihren Namen um und melden Sie sich fuer die Immobiliensteuern an.</p>
+            <div class="checklist-item"><input type="checkbox" id="cl_9_1" onchange="clUpdateProgress()"><label for="cl_9_1">Strom und Gas auf eigenen Namen umstellen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_9_2" onchange="clUpdateProgress()"><label for="cl_9_2">Wasserversorgung umstellen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_9_3" onchange="clUpdateProgress()"><label for="cl_9_3">IMU-Erklaerung bei der Gemeinde einreichen</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_9_4" onchange="clUpdateProgress()"><label for="cl_9_4">TARI (Abfallgebuehr) anmelden</label></div>
+            <div class="checklist-item"><input type="checkbox" id="cl_9_5" onchange="clUpdateProgress()"><label for="cl_9_5">Gebaeudeversicherung abschliessen</label></div>
+          </div>
+        </div>
+
+      </div><!-- /#cl_checklist -->
+    </div>
+
+    <!-- ============================================================
+         3d. KONTAKT (wizard: quiz + form)
+         ============================================================ -->
+    <div id="panel_kontakt" class="tab-panel">
+
+      <!-- Wizard Progress -->
+      <div class="quiz-progress" id="wiz_progress">
+        <div class="quiz-progress-dot active" id="wiz_dot1"></div>
+        <div class="quiz-progress-dot" id="wiz_dot2"></div>
+        <div class="quiz-progress-dot" id="wiz_dot3"></div>
+        <div class="quiz-progress-dot" id="wiz_dot4"></div>
+      </div>
+
+      <!-- Step 1: Situation -->
+      <div class="quiz-step active" id="wiz_step1">
+        <h2>Was beschreibt Ihre Situation am besten?</h2>
+        <p>Waehlen Sie die Kategorie, die Ihrem Anliegen entspricht.</p>
+        <div class="quiz-options" style="grid-template-columns: 1fr 1fr;">
+          <div class="quiz-option" onclick="wizSelect(1, 'kauf')">
+            <strong>Immobilienkauf</strong>
+            <span>Ich moechte eine Immobilie in Italien kaufen oder bin bereits im Kaufprozess.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(1, 'bauprobleme')">
+            <strong>Bauliche Probleme</strong>
+            <span>Nicht genehmigte Umbauten, Abuso Edilizio, fehlende Baugenehmigungen.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(1, 'erbschaft')">
+            <strong>Erbschaft &amp; Nachlass</strong>
+            <span>Ich habe eine Immobilie in Italien geerbt oder erwarte eine Erbschaft.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(1, 'steuern')">
+            <strong>Steuerfragen</strong>
+            <span>IMU, TARI, Doppelbesteuerung, Steuervorteile fuer Zuwanderer.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(1, 'mietrecht')">
+            <strong>Miet- &amp; Pachtrecht</strong>
+            <span>Probleme mit Mietern, Kuendigung, Sfratto, Mietvertraege.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(1, 'kataster')">
+            <strong>Grundbuch &amp; Kataster</strong>
+            <span>Abweichungen, fehlende Dokumente, Grenzstreitigkeiten.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Urgency -->
+      <div class="quiz-step" id="wiz_step2" style="display:none;">
+        <h2>Wie dringend ist Ihr Anliegen?</h2>
+        <p>Dies hilft uns, die richtige Prioritaet fuer Ihre Anfrage zu setzen.</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="wizSelect(2, 'hoch')">
+            <strong>Hoch <span class="badge badge-hoch">Dringend</span></strong>
+            <span>Fristen laufen, Vertrag steht bevor, oder es gibt ein akutes rechtliches Problem.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(2, 'mittel')">
+            <strong>Mittel <span class="badge badge-mittel">Planbar</span></strong>
+            <span>Kein unmittelbarer Zeitdruck, aber ich moechte zeitnah eine Loesung.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(2, 'niedrig')">
+            <strong>Niedrig <span class="badge badge-niedrig">Informativ</span></strong>
+            <span>Ich informiere mich vorab und plane langfristig.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Documents -->
+      <div class="quiz-step" id="wiz_step3" style="display:none;">
+        <h2>Haben Sie bereits Unterlagen?</h2>
+        <p>Dokumente wie Kaufvertrag, Visura Catastale, Grundbuchauszug etc.</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="wizSelect(3, 'ja')">
+            <strong>Ja</strong>
+            <span>Ich habe die relevanten Unterlagen vorliegen.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(3, 'teilweise')">
+            <strong>Teilweise</strong>
+            <span>Ich habe einige Dokumente, bin mir aber nicht sicher, ob alles vollstaendig ist.</span>
+          </div>
+          <div class="quiz-option" onclick="wizSelect(3, 'nein')">
+            <strong>Nein</strong>
+            <span>Ich habe noch keine Unterlagen oder weiss nicht, welche ich brauche.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Contact Form -->
+      <div class="quiz-step" id="wiz_step4" style="display:none;">
+        <h2 style="margin-bottom:8px;">Fast geschafft — Ihre Kontaktdaten</h2>
+        <p style="color:var(--text-muted); margin-bottom:24px;">Wir melden uns innerhalb von 48 Stunden bei Ihnen — kostenlos und unverbindlich.</p>
+
+        <!-- Summary of selections -->
+        <div id="wiz_summary" class="result-card" style="margin-bottom:24px;"></div>
+
+        <form id="kontaktForm" onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="kf_anrede">Anrede</label>
+              <select id="kf_anrede">
+                <option value="">-- Bitte waehlen --</option>
+                <option value="Herr">Herr</option>
+                <option value="Frau">Frau</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="kf_name">Vor- und Nachname *</label>
+              <input type="text" id="kf_name" placeholder="Max Mustermann" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="kf_email">E-Mail-Adresse *</label>
+              <input type="email" id="kf_email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-group">
+              <label for="kf_telefon">Telefonnummer</label>
+              <input type="tel" id="kf_telefon" placeholder="+49 170 1234567">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="kf_region">Region (falls bekannt)</label>
+              <select id="kf_region">
+                <option value="">-- Optional --</option>
+                <option value="abruzzen">Abruzzen</option>
+                <option value="aostatal">Aostatal</option>
+                <option value="apulien">Apulien</option>
+                <option value="basilikata">Basilikata</option>
+                <option value="emilia-romagna">Emilia-Romagna</option>
+                <option value="friaul">Friaul-Julisch Venetien</option>
+                <option value="kalabrien">Kalabrien</option>
+                <option value="kampanien">Kampanien</option>
+                <option value="latium">Latium</option>
+                <option value="ligurien">Ligurien</option>
+                <option value="lombardei">Lombardei</option>
+                <option value="marken">Marken</option>
+                <option value="molise">Molise</option>
+                <option value="piemont">Piemont</option>
+                <option value="sardinien">Sardinien</option>
+                <option value="sizilien">Sizilien</option>
+                <option value="suedtirol">Suedtirol-Trentino</option>
+                <option value="toskana">Toskana</option>
+                <option value="umbrien">Umbrien</option>
+                <option value="venetien">Venetien</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="kf_budget">Budget (falls bekannt)</label>
+              <select id="kf_budget">
+                <option value="">-- Optional --</option>
+                <option value="unter-100000">Unter 100.000 EUR</option>
+                <option value="100000-200000">100.000 - 200.000 EUR</option>
+                <option value="200000-400000">200.000 - 400.000 EUR</option>
+                <option value="400000-700000">400.000 - 700.000 EUR</option>
+                <option value="ueber-700000">Ueber 700.000 EUR</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="kf_beschreibung">Beschreibung Ihres Anliegens</label>
+            <textarea id="kf_beschreibung" placeholder="Beschreiben Sie kurz Ihre Situation..."></textarea>
+          </div>
+
+          <div class="gdpr-check">
+            <input type="checkbox" id="kf_dsgvo" required>
+            <label for="kf_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten gemaess der <a href="#" onclick="event.preventDefault();alert('Die vollstaendige Datenschutzerklaerung finden Sie unter www.italienischeranwalt.com');" style="color:var(--white);cursor:pointer;">Datenschutzerklaerung</a> zu. Meine Daten werden ausschliesslich zur Bearbeitung meiner Anfrage verwendet. *</label>
+          </div>
+
+          <div id="kf_error" class="error-msg" style="text-align:center; margin-bottom:12px;"></div>
+          <button type="button" class="btn btn-primary btn-block" id="kf_submitBtn" onclick="submitKontaktForm()">Anfrage senden</button>
+        </form>
+
+        <div id="kf_success" class="success-msg" style="margin-top:24px;">
+          <div class="checkmark">&#10003;</div>
+          <h3>Vielen Dank fuer Ihre Anfrage!</h3>
+          <p>Wir haben Ihre Nachricht erhalten und melden uns innerhalb von 48 Stunden bei Ihnen.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /.main-container -->
+
+  <!-- ============================================================
+       4. LEAD MAGNET
+       ============================================================ -->
+  <section class="lead-magnet-section">
+    <div class="lead-magnet-inner">
+      <h2>Kostenloser Leitfaden zum Download</h2>
+      <p class="subtitle">Der komplette Ratgeber zum Immobilienkauf in Italien — 30 Seiten, PDF. Von der Suche bis zur Schluesseluebergabe, mit Checklisten und Steuer-Tipps.</p>
+      <div class="lead-magnet-form" id="pdfForm">
+        <input type="text" id="pdf_name" placeholder="Ihr Name">
+        <input type="email" id="pdf_email" placeholder="Ihre E-Mail-Adresse">
+        <div class="gdpr-check" style="margin:0;">
+          <input type="checkbox" id="pdf_dsgvo">
+          <label for="pdf_dsgvo" style="font-size:0.8rem; color:var(--text-muted);">Ich stimme der Verarbeitung meiner Daten gemaess der Datenschutzerklaerung zu.</label>
+        </div>
+        <div id="pdf_error" class="error-msg" style="text-align:center;"></div>
+        <button class="btn btn-primary" onclick="submitPdfForm()">Leitfaden anfordern</button>
+      </div>
+      <div id="pdf_success" class="success-msg" style="margin-top:16px;">
+        <div class="checkmark">&#10003;</div>
+        <h3>Vielen Dank!</h3>
+        <p>Sie erhalten den Ratgeber in Kuerze per E-Mail.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. TRUST SECTION
+       ============================================================ -->
+  <section class="trust-section">
+    <h2>Warum Studio Legale Golini?</h2>
+    <div class="trust-points">
+      <div class="trust-point">
+        <div class="trust-icon">&#9878;</div>
+        <h3>20+ Jahre Erfahrung</h3>
+        <p>Spezialisiert auf internationales Immobilienrecht in Italien seit ueber zwei Jahrzehnten.</p>
+      </div>
+      <div class="trust-point">
+        <div class="trust-icon">&#9742;</div>
+        <h3>Beratung auf Deutsch</h3>
+        <p>Keine Sprachbarriere: Wir beraten Sie vollstaendig in deutscher Sprache.</p>
+      </div>
+      <div class="trust-point">
+        <div class="trust-icon">&#10003;</div>
+        <h3>Vom Anfang bis zur Uebergabe</h3>
+        <p>Komplettbetreuung: Due Diligence, Vertraege, Notar, Steueroptimierung.</p>
+      </div>
+    </div>
+    <div class="trust-stats">
+      <div class="trust-stat">
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Immobilienkaeufe begleitet</span>
+      </div>
+      <div class="trust-stat">
+        <span class="stat-number">240+</span>
+        <span class="stat-label">zufriedene Klienten</span>
+      </div>
+      <div class="trust-stat">
+        <span class="stat-number">98%</span>
+        <span class="stat-label">Erfolgsquote</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       6. DISCLAIMER & FOOTER
+       ============================================================ -->
+  <div class="disclaimer-section">
+    <p><strong>Haftungsausschluss:</strong> Dieses Tool stellt keine rechtliche Beratung dar. Alle Berechnungen und Informationen dienen ausschliesslich der unverbindlichen Erstorientierung. Die tatsaechlichen Kosten und Steuern koennen je nach individueller Situation, Gemeinde und aktueller Gesetzgebung abweichen. Fuer eine verbindliche Auskunft empfehlen wir eine individuelle Beratung durch einen in Italien zugelassenen Anwalt. Stand: Februar 2026.</p>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-main">
+        <div class="footer-left">
+          <div class="footer-logo">
+            <img src="logo.png" alt="Studio Legale Golini">
+            <span class="footer-logo-text">Studio Legale Golini</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-icon">&#128205;</span>
+            <div>
+              <strong>Via Nicola Fabrizi 185</strong>
+              65122 Pescara
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-icon">&#9742;</span>
+            <div>
+              <strong>Telefon</strong>
+              +39 085 4226105
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-icon">&#128205;</span>
+            <div>
+              <strong>Via Sistina 121</strong>
+              00187 Roma
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-icon">&#9742;</span>
+            <div>
+              <strong>Telefon</strong>
+              +39 06 47818444
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-icon">&#9993;</span>
+            <div>
+              <strong>E-Mail</strong>
+              <a href="mailto:info@avvocatogolini.it" style="color:var(--text-muted);text-decoration:underline;">info@avvocatogolini.it</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-right">
+          <h3 style="font-size:1.2rem; margin-bottom:24px;">Unsere Standorte in Italien</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:24px;">Pescara (Abruzzen) &amp; Roma — Wir begleiten Sie vor Ort bei Ihrem Immobilienkauf in ganz Italien.</p>
+          <a href="#tools" onclick="switchTab('kontakt')" class="footer-cta-btn">Kontakt aufnehmen</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#" onclick="event.preventDefault();alert('Die Datenschutzerklaerung finden Sie unter www.italienischeranwalt.com');">Privacy &amp; Cookie Policy</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C16.67.014 16.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <p><strong>Studio Legale Golini</strong></p>
+        <p>Ihr italienischer Anwalt fuer Immobilienrecht</p>
+        <p style="margin-top:8px; color:var(--text-muted);">www.italienischeranwalt.com</p>
+        <p style="margin-top:12px; font-size:0.75rem;">&copy; 2026 Studio Legale Golini. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       LEAD CAPTURE MODAL
+       ============================================================ -->
+  <div id="leadModal" class="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" onclick="hideLeadModal()">&times;</button>
+      <div id="modalForm">
+        <h3>Ergebnisse per E-Mail erhalten</h3>
+        <p>Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen eine detaillierte Aufstellung zu.</p>
+        <div class="form-group">
+          <input type="text" id="modalName" placeholder="Ihr Name" style="margin-bottom:10px;">
+          <input type="email" id="modalEmail" placeholder="ihre@email.de">
+        </div>
+        <div class="gdpr-check">
+          <input type="checkbox" id="modalGdpr">
+          <label for="modalGdpr">Ich stimme der Verarbeitung meiner Daten gemaess der Datenschutzerklaerung zu.</label>
+        </div>
+        <div id="modalError" class="error-msg"></div>
+        <button id="modalSubmitBtn" class="btn btn-primary btn-block" onclick="submitLeadModal()">Absenden</button>
+      </div>
+      <div id="modalSuccess" class="success-msg">
+        <div class="checkmark">&#10003;</div>
+        <h3>Vielen Dank!</h3>
+        <p>Sie erhalten die detaillierten Ergebnisse in Kuerze per E-Mail.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ALL JAVASCRIPT
+       ============================================================ -->
+  <script>
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    var WEBHOOK_URL = 'https://n8n-production-87eb.up.railway.app/webhook/lead-capture';
+    var CONTACT_URL = 'https://n8n-production-87eb.up.railway.app/webhook/lead-capture';
+    var NOTIFY_EMAIL = 'info@avvocatogolini.it';
+
+    // ============================================================
+    // TAB SWITCHING
+    // ============================================================
+    var activeTab = 'kostenrechner';
+
+    function switchTab(tabName) {
+      activeTab = tabName;
+      var btns = document.querySelectorAll('.tab-btn');
+      for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+      document.getElementById('tabBtn_' + tabName).classList.add('active');
+      var panels = document.querySelectorAll('.tab-panel');
+      for (var j = 0; j < panels.length; j++) panels[j].classList.remove('active');
+      document.getElementById('panel_' + tabName).classList.add('active');
+      window.scrollTo({ top: document.getElementById('tools').offsetTop - 80, behavior: 'smooth' });
+      // Reset wizard when entering Kontakt (if not already at step 4)
+      if (tabName === 'kontakt' && !wizData.unterlagen) wizReset();
+    }
+
+    // ============================================================
+    // HELPERS
+    // ============================================================
+    function formatEUR(amount) {
+      return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
+    }
+    function formatPercent(value) {
+      return new Intl.NumberFormat('de-DE', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(value);
+    }
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // ============================================================
+    // localStorage HELPERS
+    // ============================================================
+    function saveToStorage(key, val) {
+      try { localStorage.setItem('iit_' + key, JSON.stringify(val)); } catch(e) {}
+    }
+    function loadFromStorage(key) {
+      try { var v = localStorage.getItem('iit_' + key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+    }
+
+    // ============================================================
+    // KOSTENRECHNER
+    // ============================================================
+    function krCalculate() {
+      var kaufpreis = parseFloat(document.getElementById('kr_kaufpreis').value);
+      var typ = document.getElementById('kr_immobilientyp').value;
+      var region = document.getElementById('kr_region').value;
+      var statusEl = document.querySelector('input[name="kr_status"]:checked');
+      var errorEl = document.getElementById('kr_formError');
+
+      if (!kaufpreis || kaufpreis <= 0) { errorEl.textContent = 'Bitte geben Sie einen gueltigen Kaufpreis ein.'; return; }
+      if (!typ) { errorEl.textContent = 'Bitte waehlen Sie den Immobilientyp.'; return; }
+      if (!region) { errorEl.textContent = 'Bitte waehlen Sie eine Region.'; return; }
+      if (!statusEl) { errorEl.textContent = 'Bitte waehlen Sie Ihren Kauferstatus.'; return; }
+      errorEl.textContent = '';
+
+      var registersteuerRate, registersteuerLabel;
+      if (typ === 'erstwohnsitz') { registersteuerRate = 0.02; registersteuerLabel = 'Registersteuer (2%)'; }
+      else if (typ === 'zweitwohnsitz') { registersteuerRate = 0.09; registersteuerLabel = 'Registersteuer (9%)'; }
+      else { registersteuerRate = 0.22; registersteuerLabel = 'MwSt./IVA (22%)'; }
+
+      var registersteuer = kaufpreis * registersteuerRate;
+      if (typ !== 'gewerbe' && registersteuer < 1000) registersteuer = 1000;
+
+      var imposteFisse = (typ === 'gewerbe') ? 600 : 100;
+      var imposteFisseLabel = (typ === 'gewerbe') ? 'Register-, Hypotheken- und Katastersteuer (pauschal)' : 'Hypotheken- und Katastersteuer (pauschal)';
+
+      var notarRate = kaufpreis <= 500000 ? 0.01 : 0.005;
+      var notarkosten = Math.max(kaufpreis * notarRate, 2000);
+      var notarLabel = kaufpreis <= 500000 ? 'Notarkosten (ca. 1%)' : 'Notarkosten (ca. 0,5%)';
+
+      var maklerRate = 0.0366;
+      var maklerkosten = kaufpreis * maklerRate;
+      var uebersetzung = 1500;
+      var anwaltRate = 0.015;
+      var anwaltskosten = Math.max(kaufpreis * anwaltRate, 2000);
+      var anwaltLabel = anwaltskosten === 2000 ? 'Anwaltskosten (Min. 2.000)' : 'Anwaltskosten (1,5%)';
+
+      var gesamt = registersteuer + imposteFisse + notarkosten + maklerkosten + uebersetzung + anwaltskosten;
+      var gesamtMitKauf = kaufpreis + gesamt;
+
+      if (typ !== 'gewerbe' && kaufpreis * registersteuerRate < 1000) registersteuerLabel += ' (Mindestbetrag)';
+
+      var rows = [
+        [registersteuerLabel, formatPercent(registersteuerRate), formatEUR(registersteuer)],
+        [imposteFisseLabel, 'Pauschal', formatEUR(imposteFisse)],
+        [notarLabel, formatPercent(notarRate), formatEUR(notarkosten)],
+        ['Maklergebuehren (3% + MwSt.)', '3,66%', formatEUR(maklerkosten)],
+        ['Uebersetzung & Apostille', 'Pauschal', formatEUR(uebersetzung)],
+        [anwaltLabel, formatPercent(anwaltRate), formatEUR(anwaltskosten)]
+      ];
+
+      var html = '';
+      rows.forEach(function(row) { html += '<tr><td>' + row[0] + '</td><td>' + row[1] + '</td><td>' + row[2] + '</td></tr>'; });
+      html += '<tr class="total-row"><td>Nebenkosten gesamt</td><td></td><td>' + formatEUR(gesamt) + '</td></tr>';
+      html += '<tr class="total-row"><td><strong>Gesamtkosten inkl. Kaufpreis</strong></td><td></td><td><strong>' + formatEUR(gesamtMitKauf) + '</strong></td></tr>';
+
+      document.getElementById('kr_resultsBody').innerHTML = html;
+      document.getElementById('kr_results').style.display = 'block';
+      document.getElementById('kr_results').scrollIntoView({ behavior: 'smooth' });
+
+      // Save to localStorage for form pre-fill
+      saveToStorage('calc_data', { kaufpreis: kaufpreis, typ: typ, region: region, status: statusEl.value });
+    }
+
+    // ============================================================
+    // STEUERRECHNER
+    // ============================================================
+    var SR_MULTIPLIERS = { 'wohnung': 160, 'haus': 160, 'gewerbe': 65, 'grundstueck': 135 };
+    var SR_TARI_ESTIMATES = { 'wohnung': 250, 'haus': 350, 'gewerbe': 400, 'grundstueck': 100 };
+    var SR_TYPE_LABELS = { 'wohnung': 'Wohnung', 'haus': 'Haus', 'gewerbe': 'Gewerbe', 'grundstueck': 'Grundstueck' };
+
+    function srCalculateTax() {
+      var rendita = parseFloat(document.getElementById('sr_rendita').value);
+      var typ = document.getElementById('sr_immobilientyp').value;
+      var erstwohnsitzEl = document.querySelector('input[name="sr_erstwohnsitz"]:checked');
+      var errorEl = document.getElementById('sr_formError');
+
+      if (!rendita || rendita <= 0) { errorEl.textContent = 'Bitte geben Sie den Katasterertrag ein.'; return; }
+      if (!typ) { errorEl.textContent = 'Bitte waehlen Sie den Immobilientyp.'; return; }
+      if (!erstwohnsitzEl) { errorEl.textContent = 'Bitte geben Sie an, ob es Ihr Erstwohnsitz ist.'; return; }
+      errorEl.textContent = '';
+
+      var isErstwohnsitz = erstwohnsitzEl.value === 'ja';
+      var multiplier = SR_MULTIPLIERS[typ];
+      var aliquota = 0.0086;
+
+      var imu = 0, imuDetails = '';
+      if (isErstwohnsitz) {
+        imu = 0; imuDetails = 'Befreit (Erstwohnsitz)';
+        document.getElementById('sr_exemptNote').style.display = 'block';
+      } else {
+        imu = rendita * 1.05 * multiplier * aliquota;
+        imuDetails = 'Rendita ' + formatEUR(rendita) + ' x 1,05 x ' + multiplier + ' x 0,86%';
+        document.getElementById('sr_exemptNote').style.display = 'none';
+      }
+
+      var tari = SR_TARI_ESTIMATES[typ];
+      var gesamt = imu + tari;
+
+      var html = '';
+      html += '<tr><td>IMU (Gemeindesteuer)</td><td>' + imuDetails + '</td><td>' + formatEUR(imu) + '</td></tr>';
+      html += '<tr><td>TARI (Abfallgebuehr)</td><td>Schaetzung fuer ' + SR_TYPE_LABELS[typ] + '</td><td>ca. ' + formatEUR(tari) + '</td></tr>';
+      html += '<tr class="total-row"><td><strong>Jaehrliche Gesamtbelastung</strong></td><td></td><td><strong>' + formatEUR(gesamt) + '</strong></td></tr>';
+
+      document.getElementById('sr_resultsBody').innerHTML = html;
+      document.getElementById('sr_results').style.display = 'block';
+      document.getElementById('sr_results').scrollIntoView({ behavior: 'smooth' });
+
+      saveToStorage('tax_data', { rendita: rendita, typ: typ, erstwohnsitz: erstwohnsitzEl.value });
+    }
+
+    // ============================================================
+    // CHECKLISTE (accordion + checkbox progress)
+    // ============================================================
+    function clToggleAccordion(header) {
+      header.parentElement.classList.toggle('open');
+    }
+
+    function clUpdateProgress() {
+      var checkboxes = document.querySelectorAll('#cl_checklist input[type="checkbox"]');
+      var total = checkboxes.length;
+      var checked = 0;
+      var stepStatus = {};
+
+      checkboxes.forEach(function(cb) {
+        if (cb.checked) checked++;
+        var step = cb.id.split('_')[1];
+        if (!stepStatus[step]) stepStatus[step] = { total: 0, checked: 0 };
+        stepStatus[step].total++;
+        if (cb.checked) stepStatus[step].checked++;
+      });
+
+      // Count completed steps (all checkboxes in step are checked)
+      var completedSteps = 0;
+      for (var s = 1; s <= 9; s++) {
+        var numEl = document.getElementById('cl_step' + s + '_num');
+        if (stepStatus[s] && stepStatus[s].checked === stepStatus[s].total) {
+          completedSteps++;
+          if (numEl) { numEl.classList.add('completed'); numEl.innerHTML = '&#10003;'; }
+        } else {
+          if (numEl) { numEl.classList.remove('completed'); numEl.textContent = s; }
+        }
+      }
+
+      var pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+      document.getElementById('cl_progressBar').style.width = pct + '%';
+      document.getElementById('cl_progressText').textContent = completedSteps + ' / 9 Schritte abgeschlossen';
+
+      // Save to localStorage
+      var states = {};
+      checkboxes.forEach(function(cb) { states[cb.id] = cb.checked; });
+      saveToStorage('checklist', states);
+    }
+
+    function clRestoreProgress() {
+      var states = loadFromStorage('checklist');
+      if (!states) return;
+      for (var id in states) {
+        var cb = document.getElementById(id);
+        if (cb) cb.checked = states[id];
+      }
+      clUpdateProgress();
+    }
+
+    // ============================================================
+    // WIZARD (Kontakt: quiz steps + form)
+    // ============================================================
+    var wizData = { situation: '', dringlichkeit: '', unterlagen: '' };
+    var SITUATION_LABELS = {
+      'kauf': 'Immobilienkauf',
+      'bauprobleme': 'Bauliche Probleme (Abuso Edilizio)',
+      'erbschaft': 'Erbschaft & Nachlass',
+      'steuern': 'Steuerfragen',
+      'mietrecht': 'Miet- & Pachtrecht',
+      'kataster': 'Grundbuch & Kataster'
+    };
+    var DRINGLICH_LABELS = { 'hoch': 'Hoch', 'mittel': 'Mittel', 'niedrig': 'Niedrig' };
+    var DRINGLICH_BADGE = { 'hoch': 'badge-hoch', 'mittel': 'badge-mittel', 'niedrig': 'badge-niedrig' };
+
+    function wizUpdateDots(currentStep) {
+      for (var d = 1; d <= 4; d++) {
+        var dot = document.getElementById('wiz_dot' + d);
+        dot.className = 'quiz-progress-dot';
+        if (d < currentStep) dot.classList.add('done');
+        else if (d === currentStep) dot.classList.add('active');
+      }
+    }
+
+    function wizSelect(step, value) {
+      var stepEl = document.getElementById('wiz_step' + step);
+      stepEl.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected'); });
+      event.currentTarget.classList.add('selected');
+
+      if (step === 1) wizData.situation = value;
+      if (step === 2) wizData.dringlichkeit = value;
+      if (step === 3) wizData.unterlagen = value;
+      saveToStorage('quiz', wizData);
+
+      setTimeout(function() {
+        stepEl.classList.remove('active');
+        stepEl.style.display = 'none';
+        var nextStep = step + 1;
+        wizUpdateDots(nextStep);
+        var next = document.getElementById('wiz_step' + nextStep);
+        next.style.display = '';
+        next.classList.add('active');
+        // If showing form (step 4), build summary and prefill
+        if (nextStep === 4) {
+          wizShowSummary();
+          prefillKontaktForm();
+        }
+      }, 300);
+    }
+
+    function wizShowSummary() {
+      var badge = DRINGLICH_BADGE[wizData.dringlichkeit] || '';
+      var html = '<h3>' + (SITUATION_LABELS[wizData.situation] || '') +
+        (wizData.dringlichkeit ? ' <span class="badge ' + badge + '">' + DRINGLICH_LABELS[wizData.dringlichkeit] + '</span>' : '') +
+        '</h3>';
+      html += '<p style="margin-top:8px;">Unterlagen: ' + ({ja:'Vorhanden',teilweise:'Teilweise',nein:'Nicht vorhanden'}[wizData.unterlagen] || '-') + '</p>';
+      document.getElementById('wiz_summary').innerHTML = html;
+    }
+
+    function wizReset() {
+      wizData = { situation: '', dringlichkeit: '', unterlagen: '' };
+      saveToStorage('quiz', null);
+      for (var i = 1; i <= 4; i++) {
+        var s = document.getElementById('wiz_step' + i);
+        s.style.display = (i === 1) ? '' : 'none';
+        s.className = 'quiz-step' + (i === 1 ? ' active' : '');
+        s.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected'); });
+      }
+      wizUpdateDots(1);
+    }
+
+    // ============================================================
+    // LEAD CAPTURE MODAL
+    // ============================================================
+    var currentLeadSource = '';
+
+    function showLeadModal(source) {
+      currentLeadSource = source;
+      document.getElementById('leadModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideLeadModal() {
+      document.getElementById('leadModal').classList.remove('active');
+      document.body.style.overflow = '';
+      // Reset after animation
+      setTimeout(function() {
+        document.getElementById('modalForm').style.display = 'block';
+        document.getElementById('modalSuccess').style.display = 'none';
+        document.getElementById('modalName').value = '';
+        document.getElementById('modalEmail').value = '';
+        document.getElementById('modalGdpr').checked = false;
+        document.getElementById('modalError').textContent = '';
+      }, 300);
+    }
+
+    // Close modal on overlay click
+    document.getElementById('leadModal').addEventListener('click', function(e) {
+      if (e.target === this) hideLeadModal();
+    });
+
+    function submitLeadModal() {
+      var name = document.getElementById('modalName').value.trim();
+      var email = document.getElementById('modalEmail').value.trim();
+      var gdpr = document.getElementById('modalGdpr').checked;
+      var errorEl = document.getElementById('modalError');
+      var btn = document.getElementById('modalSubmitBtn');
+
+      if (!email) { errorEl.textContent = 'Bitte geben Sie Ihre E-Mail-Adresse ein.'; return; }
+      if (!validateEmail(email)) { errorEl.textContent = 'Bitte geben Sie eine gueltige E-Mail-Adresse ein.'; return; }
+      if (!gdpr) { errorEl.textContent = 'Bitte stimmen Sie der Datenschutzerklaerung zu.'; return; }
+      errorEl.textContent = '';
+
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet...';
+
+      var calcData = loadFromStorage('calc_data') || {};
+      var payload = {
+        email: email,
+        name: name,
+        source: currentLeadSource,
+        data: calcData,
+        timestamp: new Date().toISOString(),
+        gdpr_consent: true,
+        notify_to: NOTIFY_EMAIL,
+        notify_subject: 'Nuovo Lead DE — ' + currentLeadSource
+      };
+
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function(err) { console.error('Webhook error:', err); }).finally(function() {
+        document.getElementById('modalForm').style.display = 'none';
+        document.getElementById('modalSuccess').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Absenden';
+      });
+    }
+
+    // ============================================================
+    // KONTAKT FORM
+    // ============================================================
+    function prefillKontaktForm() {
+      var calcData = loadFromStorage('calc_data');
+      if (calcData) {
+        if (calcData.region) {
+          var regionSel = document.getElementById('kf_region');
+          for (var i = 0; i < regionSel.options.length; i++) {
+            if (regionSel.options[i].value === calcData.region) { regionSel.selectedIndex = i; break; }
+          }
+        }
+        if (calcData.kaufpreis) {
+          var budget = '';
+          var kp = calcData.kaufpreis;
+          if (kp < 100000) budget = 'unter-100000';
+          else if (kp < 200000) budget = '100000-200000';
+          else if (kp < 400000) budget = '200000-400000';
+          else if (kp < 700000) budget = '400000-700000';
+          else budget = 'ueber-700000';
+          var budgetSel = document.getElementById('kf_budget');
+          for (var j = 0; j < budgetSel.options.length; j++) {
+            if (budgetSel.options[j].value === budget) { budgetSel.selectedIndex = j; break; }
+          }
+        }
+      }
+    }
+
+    function submitKontaktForm() {
+      var name = document.getElementById('kf_name').value.trim();
+      var email = document.getElementById('kf_email').value.trim();
+      var dsgvo = document.getElementById('kf_dsgvo').checked;
+      var errorEl = document.getElementById('kf_error');
+      var btn = document.getElementById('kf_submitBtn');
+
+      if (!name) { errorEl.textContent = 'Bitte geben Sie Ihren Namen ein.'; return; }
+      if (!email) { errorEl.textContent = 'Bitte geben Sie Ihre E-Mail-Adresse ein.'; return; }
+      if (!validateEmail(email)) { errorEl.textContent = 'Bitte geben Sie eine gueltige E-Mail-Adresse ein.'; return; }
+      if (!dsgvo) { errorEl.textContent = 'Bitte stimmen Sie der Datenschutzerklaerung zu.'; return; }
+      errorEl.textContent = '';
+
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet...';
+
+      var payload = {
+        email: email,
+        name: name,
+        anrede: document.getElementById('kf_anrede').value,
+        telefon: document.getElementById('kf_telefon').value.trim(),
+        source: 'kontakt-form',
+        data: {
+          situation: wizData.situation || '',
+          region: document.getElementById('kf_region').value,
+          budget: document.getElementById('kf_budget').value,
+          beschreibung: document.getElementById('kf_beschreibung').value.trim(),
+          unterlagen: wizData.unterlagen || '',
+          dringlichkeit: wizData.dringlichkeit || ''
+        },
+        timestamp: new Date().toISOString(),
+        gdpr_consent: true,
+        notify_to: NOTIFY_EMAIL,
+        notify_subject: 'Nuovo Lead DE — Kontaktformular'
+      };
+
+      fetch(CONTACT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function(err) { console.error('Webhook error:', err); }).finally(function() {
+        btn.disabled = false;
+        btn.textContent = 'Anfrage senden';
+        document.getElementById('wiz_step4').querySelector('form').style.display = 'none';
+        document.getElementById('wiz_summary').style.display = 'none';
+        document.getElementById('wiz_step4').querySelector('h2').style.display = 'none';
+        document.getElementById('wiz_step4').querySelector('p').style.display = 'none';
+        document.getElementById('kf_success').style.display = 'block';
+      });
+    }
+
+    // ============================================================
+    // PDF LEAD MAGNET FORM
+    // ============================================================
+    function submitPdfForm() {
+      var name = document.getElementById('pdf_name').value.trim();
+      var email = document.getElementById('pdf_email').value.trim();
+      var dsgvo = document.getElementById('pdf_dsgvo').checked;
+      var errorEl = document.getElementById('pdf_error');
+
+      if (!email) { errorEl.textContent = 'Bitte geben Sie Ihre E-Mail-Adresse ein.'; return; }
+      if (!validateEmail(email)) { errorEl.textContent = 'Bitte geben Sie eine gueltige E-Mail-Adresse ein.'; return; }
+      if (!dsgvo) { errorEl.textContent = 'Bitte stimmen Sie der Datenschutzerklaerung zu.'; return; }
+      errorEl.textContent = '';
+
+      var payload = {
+        email: email,
+        name: name,
+        source: 'pdf-guide',
+        data: {},
+        timestamp: new Date().toISOString(),
+        gdpr_consent: true,
+        notify_to: NOTIFY_EMAIL,
+        notify_subject: 'Nuovo Lead DE — PDF Leitfaden'
+      };
+
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function(err) { console.error('Webhook error:', err); }).finally(function() {
+        document.getElementById('pdfForm').style.display = 'none';
+        document.getElementById('pdf_success').style.display = 'block';
+      });
+    }
+
+    // ============================================================
+    // INIT ON LOAD
+    // ============================================================
+    window.addEventListener('DOMContentLoaded', function() {
+      clRestoreProgress();
+    });
+  </script>
+</body>
+</html>
