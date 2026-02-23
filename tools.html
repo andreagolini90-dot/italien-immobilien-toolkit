@@ -938,15 +938,21 @@
         registersteuerRate = 0.09;
         registersteuerLabel = 'Registersteuer (9%)';
       } else {
-        registersteuerRate = 0.10;
-        registersteuerLabel = 'MwSt./IVA (10%)';
+        registersteuerRate = 0.22;
+        registersteuerLabel = 'MwSt./IVA (22%)';
       }
       var registersteuer = kaufpreis * registersteuerRate;
+      // Minimum €1,000 for Imposta di Registro on private purchases (Art. 10 D.Lgs. 23/2011)
+      if (typ !== 'gewerbe' && registersteuer < 1000) {
+        registersteuer = 1000;
+      }
 
-      // Gewerbe: IVA-Kauf (€200 ipotecaria + €200 catastale = €400)
-      // Wohnung: Privatkauf (€50 ipotecaria + €50 catastale = €100)
-      var imposteFisse = (typ === 'gewerbe') ? 400 : 100;
-      var imposteFisseLabel = 'Hypotheken- und Katastersteuer (pauschal)';
+      // Gewerbe/IVA-Kauf: €200 registro + €200 ipotecaria + €200 catastale = €600
+      // Privatkauf: €50 ipotecaria + €50 catastale = €100 (registro is the % rate above)
+      var imposteFisse = (typ === 'gewerbe') ? 600 : 100;
+      var imposteFisseLabel = (typ === 'gewerbe')
+        ? 'Register-, Hypotheken- und Katastersteuer (pauschal)'
+        : 'Hypotheken- und Katastersteuer (pauschal)';
 
       var notarRate = kaufpreis <= 500000 ? 0.01 : 0.005;
       var notarkosten = Math.max(kaufpreis * notarRate, 2000);
@@ -965,6 +971,11 @@
       var gesamtMitKauf = kaufpreis + gesamt;
 
       // Build table
+      // Adjust label if minimum applied
+      if (typ !== 'gewerbe' && kaufpreis * registersteuerRate < 1000) {
+        registersteuerLabel += ' (Mindestbetrag)';
+      }
+
       var rows = [
         [registersteuerLabel, formatPercent(registersteuerRate), formatEUR(registersteuer)],
         [imposteFisseLabel, 'Pauschal', formatEUR(imposteFisse)],
