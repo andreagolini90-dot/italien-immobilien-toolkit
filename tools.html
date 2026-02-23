@@ -364,21 +364,16 @@
       gap: 10px;
       padding: 8px 0;
     }
-    .checklist-item input[type="checkbox"] {
-      margin-top: 4px;
-      accent-color: var(--accent);
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
+    .checklist-item::before {
+      content: "•";
+      color: var(--accent);
+      font-size: 1.2rem;
+      line-height: 1.5;
+      flex-shrink: 0;
     }
-    .checklist-item label {
-      cursor: pointer;
+    .checklist-item span {
       font-size: 1.1rem;
       color: var(--text-muted);
-    }
-    .checklist-item input:checked + label {
-      text-decoration: line-through;
-      color: rgba(255,255,255,0.4);
     }
 
     /* Quiz Steps */
@@ -729,9 +724,9 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Die italienische Steuernummer ist Voraussetzung fuer jeden Immobilienkauf. Sie koennen sie beim italienischen Konsulat oder direkt bei der Agentur der Einnahmen (Agenzia delle Entrate) beantragen.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c1a"><label for="cl_c1a">Gueltigen Reisepass oder Personalausweis bereithalten</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c1b"><label for="cl_c1b">Antrag beim italienischen Konsulat oder online stellen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c1c"><label for="cl_c1c">Codice Fiscale erhalten und sicher aufbewahren</label></div>
+            <div class="checklist-item"><span>Gueltigen Reisepass oder Personalausweis bereithalten</span></div>
+            <div class="checklist-item"><span>Antrag beim italienischen Konsulat oder online stellen</span></div>
+            <div class="checklist-item"><span>Codice Fiscale erhalten und sicher aufbewahren</span></div>
           </div>
         </div>
 
@@ -743,9 +738,9 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Ein italienisches Bankkonto erleichtert die Zahlungsabwicklung erheblich. Viele Banken bieten Konten fuer Nichtresidenten an.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c2a"><label for="cl_c2a">Bank mit Erfahrung fuer auslaendische Kunden waehlen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c2b"><label for="cl_c2b">Conto Corrente per Non Residenti eroeffnen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c2c"><label for="cl_c2c">IBAN fuer Ueberweisungen bereithalten</label></div>
+            <div class="checklist-item"><span>Bank mit Erfahrung fuer auslaendische Kunden waehlen</span></div>
+            <div class="checklist-item"><span>Conto Corrente per Non Residenti eroeffnen</span></div>
+            <div class="checklist-item"><span>IBAN fuer Ueberweisungen bereithalten</span></div>
           </div>
         </div>
 
@@ -757,10 +752,10 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Nehmen Sie sich ausreichend Zeit fuer die Suche. Nutzen Sie lokale Agenturen und Online-Portale. Besichtigen Sie die Immobilie persoenlich.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c3a"><label for="cl_c3a">Immobilienagentur mit Ortskenntnis beauftragen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c3b"><label for="cl_c3b">Online-Portale durchsuchen (Immobiliare.it, Idealista)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c3c"><label for="cl_c3c">Persoenliche Besichtigung durchfuehren</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c3d"><label for="cl_c3d">Umgebung und Infrastruktur pruefen</label></div>
+            <div class="checklist-item"><span>Immobilienagentur mit Ortskenntnis beauftragen</span></div>
+            <div class="checklist-item"><span>Online-Portale durchsuchen (Immobiliare.it, Idealista)</span></div>
+            <div class="checklist-item"><span>Persoenliche Besichtigung durchfuehren</span></div>
+            <div class="checklist-item"><span>Umgebung und Infrastruktur pruefen</span></div>
           </div>
         </div>
 
@@ -772,11 +767,11 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Dies ist der wichtigste Schritt. Ein Anwalt prueft alle rechtlichen Aspekte der Immobilie, bevor Sie kaufen. Ueberspringen Sie diesen Schritt niemals.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c4a"><label for="cl_c4a">Katasterauszug (Visura Catastale) anfordern</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c4b"><label for="cl_c4b">Baukonformitaet pruefen (Conformita Urbanistica)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c4c"><label for="cl_c4c">Grundbuchauszug auf Belastungen pruefen (Ipoteche)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c4d"><label for="cl_c4d">Energieausweis (APE) vorhanden?</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c4e"><label for="cl_c4e">Eventuellen Bauverstoss (Abuso Edilizio) ausschliessen</label></div>
+            <div class="checklist-item"><span>Katasterauszug (Visura Catastale) anfordern</span></div>
+            <div class="checklist-item"><span>Baukonformitaet pruefen (Conformita Urbanistica)</span></div>
+            <div class="checklist-item"><span>Grundbuchauszug auf Belastungen pruefen (Ipoteche)</span></div>
+            <div class="checklist-item"><span>Energieausweis (APE) vorhanden?</span></div>
+            <div class="checklist-item"><span>Eventuellen Bauverstoss (Abuso Edilizio) ausschliessen</span></div>
           </div>
         </div>
 
@@ -788,10 +783,10 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Der Vorvertrag (Contratto Preliminare) ist bindend. Er legt Preis, Bedingungen und Fristen fest. Ueblich ist eine Anzahlung von 10-30% des Kaufpreises.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c5a"><label for="cl_c5a">Vertragsbedingungen mit Anwalt pruefen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c5b"><label for="cl_c5b">Anzahlung (Caparra) vereinbaren und ueberweisen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c5c"><label for="cl_c5c">Frist fuer Notarvertrag (Rogito) festlegen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c5d"><label for="cl_c5d">Aufschiebende Bedingungen einbauen (falls noetig)</label></div>
+            <div class="checklist-item"><span>Vertragsbedingungen mit Anwalt pruefen</span></div>
+            <div class="checklist-item"><span>Anzahlung (Caparra) vereinbaren und ueberweisen</span></div>
+            <div class="checklist-item"><span>Frist fuer Notarvertrag (Rogito) festlegen</span></div>
+            <div class="checklist-item"><span>Aufschiebende Bedingungen einbauen (falls noetig)</span></div>
           </div>
         </div>
 
@@ -803,11 +798,11 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Der Rogito ist der endgueltige Kaufvertrag vor dem Notar. An diesem Tag wird die Immobilie offiziell uebertragen und die Restzahlung geleistet.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c6a"><label for="cl_c6a">Notar auswaehlen (Kaeufer hat das Wahlrecht)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c6b"><label for="cl_c6b">Vereidigten Dolmetscher organisieren (falls kein Italienisch)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c6c"><label for="cl_c6c">Restkaufpreis per Bankueberweisung bereitstellen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c6d"><label for="cl_c6d">Steuern und Notargebuehren zahlen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c6e"><label for="cl_c6e">Schluessel erhalten</label></div>
+            <div class="checklist-item"><span>Notar auswaehlen (Kaeufer hat das Wahlrecht)</span></div>
+            <div class="checklist-item"><span>Vereidigten Dolmetscher organisieren (falls kein Italienisch)</span></div>
+            <div class="checklist-item"><span>Restkaufpreis per Bankueberweisung bereitstellen</span></div>
+            <div class="checklist-item"><span>Steuern und Notargebuehren zahlen</span></div>
+            <div class="checklist-item"><span>Schluessel erhalten</span></div>
           </div>
         </div>
 
@@ -819,9 +814,9 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Nach dem Rogito muss der Eigentuemerwechsel beim Katasteramt und bei der Gemeinde eingetragen werden. Dies uebernimmt in der Regel der Notar.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c7a"><label for="cl_c7a">Voltura Catastale beim Katasteramt (durch Notar)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c7b"><label for="cl_c7b">Eintragung beim Grundbuchamt (Conservatoria)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c7c"><label for="cl_c7c">Gemeinde ueber Eigentuemerwechsel informieren</label></div>
+            <div class="checklist-item"><span>Voltura Catastale beim Katasteramt (durch Notar)</span></div>
+            <div class="checklist-item"><span>Eintragung beim Grundbuchamt (Conservatoria)</span></div>
+            <div class="checklist-item"><span>Gemeinde ueber Eigentuemerwechsel informieren</span></div>
           </div>
         </div>
 
@@ -833,11 +828,11 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Italien bietet erhebliche Steuervorteile fuer Personen, die ihren Wohnsitz verlegen. Pruefen Sie vor dem Kauf, ob Sie berechtigt sind &mdash; dies kann die Gesamtkosten drastisch senken.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8tax_a"><label for="cl_c8tax_a"><strong>Rentner:</strong> Flat Tax 7% auf alle Auslandseinkuenfte fuer 10 Jahre (Wohnsitz in Sueditalien, Gemeinde unter 20.000 Einwohner)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8tax_b"><label for="cl_c8tax_b"><strong>Arbeitnehmer:</strong> Regime Impatriati &mdash; 50-60% Steuerbefreiung fuer 5 Jahre (qualifizierte Fachkraefte)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8tax_c"><label for="cl_c8tax_c"><strong>Vermoeegende:</strong> Flat Tax 300.000 EUR/Jahr auf alle Auslandseinkuenfte (ab 2026)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8tax_d"><label for="cl_c8tax_d">Prima-Casa-Verguestigung pruefen (2% statt 9% Registersteuer bei Erstwohnsitz)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8tax_e"><label for="cl_c8tax_e">Steuerberater oder Anwalt zu Doppelbesteuerungsabkommen DE-AT-CH/Italien konsultieren</label></div>
+            <div class="checklist-item"><span><strong>Rentner:</strong> Flat Tax 7% auf alle Auslandseinkuenfte fuer 10 Jahre (Wohnsitz in Sueditalien, Gemeinde unter 20.000 Einwohner)</span></div>
+            <div class="checklist-item"><span><strong>Arbeitnehmer:</strong> Regime Impatriati &mdash; 50-60% Steuerbefreiung fuer 5 Jahre (qualifizierte Fachkraefte)</span></div>
+            <div class="checklist-item"><span><strong>Vermoeegende:</strong> Flat Tax 300.000 EUR/Jahr auf alle Auslandseinkuenfte (ab 2026)</span></div>
+            <div class="checklist-item"><span>Prima-Casa-Verguestigung pruefen (2% statt 9% Registersteuer bei Erstwohnsitz)</span></div>
+            <div class="checklist-item"><span>Steuerberater oder Anwalt zu Doppelbesteuerungsabkommen DE-AT-CH/Italien konsultieren</span></div>
           </div>
         </div>
 
@@ -849,11 +844,11 @@
           </div>
           <div class="accordion-body">
             <p style="margin-bottom:12px; color:var(--gray-700);">Richten Sie die Versorgungsvertraege auf Ihren Namen um und melden Sie sich fuer die Immobiliensteuern an.</p>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8a"><label for="cl_c8a">Strom und Gas auf eigenen Namen umstellen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8b"><label for="cl_c8b">Wasserversorgung umstellen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8c"><label for="cl_c8c">IMU-Erklaerung bei der Gemeinde einreichen</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8d"><label for="cl_c8d">TARI (Abfallgebuehr) anmelden</label></div>
-            <div class="checklist-item"><input type="checkbox" id="cl_c8e"><label for="cl_c8e">Gebaeudeversicherung abschliessen</label></div>
+            <div class="checklist-item"><span>Strom und Gas auf eigenen Namen umstellen</span></div>
+            <div class="checklist-item"><span>Wasserversorgung umstellen</span></div>
+            <div class="checklist-item"><span>IMU-Erklaerung bei der Gemeinde einreichen</span></div>
+            <div class="checklist-item"><span>TARI (Abfallgebuehr) anmelden</span></div>
+            <div class="checklist-item"><span>Gebaeudeversicherung abschliessen</span></div>
           </div>
         </div>
 
