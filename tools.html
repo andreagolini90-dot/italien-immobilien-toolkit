@@ -1041,16 +1041,8 @@
       document.getElementById('kr_resultsBody').innerHTML = html;
       document.getElementById('kr_results').style.display = 'block';
       document.getElementById('kr_results').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(notifyParentHeight, 50);
 
-      // Store for lead capture
-      window._krCalcData = {
-        kaufpreis: kaufpreis,
-        immobilientyp: typ,
-        region: region,
-        kauferstatus: statusEl.value,
-        nebenkosten: gesamt,
-        gesamtkosten: gesamtMitKauf
-      };
     }
 
     // ============================================================
@@ -1115,15 +1107,8 @@
       document.getElementById('sr_resultsBody').innerHTML = html;
       document.getElementById('sr_results').style.display = 'block';
       document.getElementById('sr_results').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(notifyParentHeight, 50);
 
-      window._srTaxData = {
-        rendita: rendita,
-        immobilientyp: typ,
-        erstwohnsitz: isErstwohnsitz,
-        imu: imu,
-        tari: tari,
-        gesamt: gesamt
-      };
     }
 
     // ============================================================
@@ -1132,13 +1117,9 @@
     function clToggleAccordion(header) {
       var item = header.parentElement;
       item.classList.toggle('open');
+      setTimeout(notifyParentHeight, 50);
     }
 
-    function clGetChecklistProgress() {
-      var total = document.querySelectorAll('#cl_checklist input[type="checkbox"]').length;
-      var checked = document.querySelectorAll('#cl_checklist input[type="checkbox"]:checked').length;
-      return { completed: checked, total: total, progress: Math.round((checked / total) * 100) + '%' };
-    }
 
     // ============================================================
     // PROBLEMLOESER
@@ -1280,6 +1261,7 @@
         steps[i].classList.remove('active');
       }
       document.getElementById('pl_step' + n).classList.add('active');
+      setTimeout(notifyParentHeight, 50);
     }
 
     function plGoBack(step) {
