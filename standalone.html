@@ -1559,8 +1559,13 @@
             <textarea id="kf_beschreibung" placeholder="Beschreiben Sie kurz Ihre Situation..."></textarea>
           </div>
 
-          <div id="kf_unterlagen_hint" style="display:none; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:14px 18px; margin-bottom:16px;">
-            <p style="margin:0; font-size:0.85rem; color:var(--text-muted);"><strong style="color:var(--white);">Unterlagen senden:</strong> Bitte senden Sie Ihre Dokumente nach dem Absenden per E-Mail an <a href="mailto:info@avvocatogolini.it" style="color:var(--white); text-decoration:underline;">info@avvocatogolini.it</a> — wir melden uns umgehend.</p>
+          <div id="kf_unterlagen_hint" style="display:none; margin-bottom:16px;">
+            <div class="form-group">
+              <label for="kf_files" style="margin-bottom:8px; display:block;"><strong>Unterlagen hochladen</strong></label>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">Akzeptierte Formate: PDF, JPG, PNG, DOC, DOCX — max. 10 MB pro Datei</p>
+              <input type="file" id="kf_files" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:12px; width:100%; color:var(--white); font-size:0.85rem; cursor:pointer;">
+              <div id="kf_upload_status" style="margin-top:8px; font-size:0.8rem; color:var(--text-muted);"></div>
+            </div>
           </div>
 
           <div class="gdpr-check">
@@ -1779,6 +1784,10 @@
     var WEBHOOK_URL = 'https://n8n-production-87eb.up.railway.app/webhook/lead-capture';
     var CONTACT_URL = 'https://n8n-production-87eb.up.railway.app/webhook/lead-capture';
     var NOTIFY_EMAIL = 'info@avvocatogolini.it';
+    var CLOUDINARY_CLOUD = 'dgk9zdsef';
+    var CLOUDINARY_PRESET = 'italien-immobilien.italienischeranwalt.com';
+    var ALLOWED_TYPES = ['application/pdf','image/jpeg','image/png','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    var MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
     // ============================================================
     // TAB SWITCHING
@@ -2158,12 +2167,27 @@
       }
     }
 
-    function submitKontaktForm() {
+    // Upload single file to Cloudinary, returns URL or null
+    function uploadFileToCloudinary(file) {
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+      formData.append('folder', 'immobilien-leads');
+      return fetch('https://api.cloudinary.com/v1_1/' + CLOUDINARY_CLOUD + '/auto/upload', {
+        method: 'POST',
+        body: formData
+      }).then(function(res) { return res.json(); })
+        .then(function(data) { return data.secure_url || null; })
+        .catch(function() { return null; });
+    }
+
+    async function submitKontaktForm() {
       var name = document.getElementById('kf_name').value.trim();
       var email = document.getElementById('kf_email').value.trim();
       var dsgvo = document.getElementById('kf_dsgvo').checked;
       var errorEl = document.getElementById('kf_error');
       var btn = document.getElementById('kf_submitBtn');
+      var statusEl = document.getElementById('kf_upload_status');
 
       if (!name) { errorEl.textContent = 'Bitte geben Sie Ihren Namen ein.'; return; }
       if (!email) { errorEl.textContent = 'Bitte geben Sie Ihre E-Mail-Adresse ein.'; return; }
@@ -2173,6 +2197,37 @@
 
       btn.disabled = true;
       btn.textContent = 'Wird gesendet...';
+
+      // Upload files to Cloudinary if any
+      var fileUrls = [];
+      var fileInput = document.getElementById('kf_files');
+      if (fileInput && fileInput.files.length > 0) {
+        var files = Array.from(fileInput.files);
+        // Validate files
+        for (var i = 0; i < files.length; i++) {
+          if (!ALLOWED_TYPES.includes(files[i].type)) {
+            errorEl.textContent = 'Nicht unterstuetztes Format: ' + files[i].name + '. Erlaubt: PDF, JPG, PNG, DOC, DOCX.';
+            btn.disabled = false;
+            btn.textContent = 'Anfrage senden';
+            return;
+          }
+          if (files[i].size > MAX_FILE_SIZE) {
+            errorEl.textContent = files[i].name + ' ist zu gross (max. 10 MB).';
+            btn.disabled = false;
+            btn.textContent = 'Anfrage senden';
+            return;
+          }
+        }
+        if (statusEl) statusEl.textContent = 'Dateien werden hochgeladen (' + files.length + ')...';
+        btn.textContent = 'Dateien hochladen...';
+        for (var j = 0; j < files.length; j++) {
+          if (statusEl) statusEl.textContent = 'Hochladen: ' + files[j].name + ' (' + (j+1) + '/' + files.length + ')';
+          var url = await uploadFileToCloudinary(files[j]);
+          if (url) fileUrls.push(url);
+        }
+        if (statusEl) statusEl.textContent = fileUrls.length + ' von ' + files.length + ' Dateien hochgeladen.';
+        btn.textContent = 'Wird gesendet...';
+      }
 
       var payload = {
         email: email,
@@ -2186,7 +2241,8 @@
           budget: document.getElementById('kf_budget').value,
           beschreibung: document.getElementById('kf_beschreibung').value.trim(),
           unterlagen: wizData.unterlagen || '',
-          dringlichkeit: wizData.dringlichkeit || ''
+          dringlichkeit: wizData.dringlichkeit || '',
+          dateien: fileUrls
         },
         timestamp: new Date().toISOString(),
         gdpr_consent: true,
