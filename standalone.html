@@ -1566,7 +1566,9 @@
             <div class="form-group">
               <label for="kf_files" style="margin-bottom:8px; display:block;"><strong>Unterlagen hochladen</strong></label>
               <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">Akzeptierte Formate: PDF, JPG, PNG, DOC, DOCX — max. 10 MB pro Datei</p>
-              <input type="file" id="kf_files" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:12px; width:100%; color:var(--white); font-size:0.85rem; cursor:pointer;">
+              <input type="file" id="kf_files" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display:none;">
+              <button type="button" onclick="document.getElementById('kf_files').click()" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:8px; padding:12px 18px; color:var(--white); font-size:0.85rem; cursor:pointer; font-family:'Cinzel',serif;">Dateien auswaehlen</button>
+              <span id="kf_files_label" style="margin-left:12px; font-size:0.85rem; color:var(--text-muted);">Keine Dateien ausgewaehlt</span>
               <div id="kf_upload_status" style="margin-top:8px; font-size:0.8rem; color:var(--text-muted);"></div>
             </div>
           </div>
@@ -2326,6 +2328,16 @@
     // ============================================================
     window.addEventListener('DOMContentLoaded', function() {
       clRestoreProgress();
+      document.getElementById('kf_files').addEventListener('change', function() {
+        var label = document.getElementById('kf_files_label');
+        if (this.files.length === 0) {
+          label.textContent = 'Keine Dateien ausgewaehlt';
+        } else if (this.files.length === 1) {
+          label.textContent = this.files[0].name;
+        } else {
+          label.textContent = this.files.length + ' Dateien ausgewaehlt';
+        }
+      });
     });
   </script>
 </body>
