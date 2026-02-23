@@ -979,129 +979,204 @@
     #sr_exemptNote strong { color: var(--green); }
 
     /* ============================================================
-       TIMELINE
+       TIMELINE — Premium
        ============================================================ */
     .timeline {
       position: relative;
-      padding-left: 56px;
-      margin-left: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 0;
     }
+    /* Vertical center line */
     .timeline::before {
       content: '';
       position: absolute;
-      left: 20px;
+      left: 50%;
       top: 0;
       bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.5) 44%, rgba(255,255,255,0.15) 100%);
+      width: 3px;
+      background: rgba(255,255,255,0.1);
+      transform: translateX(-50%);
     }
+    /* Animated fill line */
+    .timeline::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 3px;
+      height: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+      transform: translateX(-50%);
+      transition: height 0.3s ease;
+    }
+
+    /* Timeline item */
     .tl-item {
       position: relative;
-      padding-bottom: 36px;
+      width: 45%;
+      padding: 0;
+      margin-bottom: 48px;
       opacity: 0;
-      transform: translateX(-16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .tl-item.visible {
-      opacity: 1;
-      transform: translateX(0);
+    .tl-item:nth-child(odd) { margin-left: 0; text-align: right; }
+    .tl-item:nth-child(even) { margin-left: 55%; text-align: left; }
+    .tl-item.visible { opacity: 1; transform: translateY(0); }
+
+    /* Card */
+    .tl-card {
+      position: relative;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
+    .tl-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.25);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    /* Watermark number */
+    .tl-card::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -14px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 4.5rem;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    .tl-item:nth-child(odd) .tl-card::before { right: 20px; }
+    .tl-item:nth-child(even) .tl-card::before { left: 20px; }
+
+    /* Dot on the center line */
     .tl-dot {
       position: absolute;
-      left: -56px;
-      top: 0;
-      width: 40px;
-      height: 40px;
+      top: 16px;
+      width: 52px;
+      height: 52px;
       background: var(--primary-dark);
-      border: 2px solid rgba(255,255,255,0.3);
+      border: 3px solid rgba(255,255,255,0.2);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
+      z-index: 2;
+      transition: all 0.5s ease;
     }
+    .tl-item:nth-child(odd) .tl-dot { right: -78px; }
+    .tl-item:nth-child(even) .tl-dot { left: -78px; }
     .tl-item.visible .tl-dot {
-      border-color: rgba(255,255,255,0.7);
-      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 20px rgba(255,255,255,0.08), 0 0 40px rgba(255,255,255,0.03);
     }
     .tl-dot svg {
-      width: 18px;
-      height: 18px;
-      color: rgba(255,255,255,0.5);
-      transition: color 0.4s;
+      width: 22px;
+      height: 22px;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.5s;
     }
-    .tl-item.visible .tl-dot svg {
-      color: var(--white);
+    .tl-item.visible .tl-dot svg { color: var(--white); }
+
+    /* Connector line from card to dot */
+    .tl-card::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      width: 28px;
+      height: 2px;
+      background: rgba(255,255,255,0.15);
+      transition: background 0.4s;
     }
+    .tl-item:nth-child(odd) .tl-card::after { right: -28px; }
+    .tl-item:nth-child(even) .tl-card::after { left: -28px; }
+    .tl-item.visible .tl-card::after { background: rgba(255,255,255,0.3); }
+
+    /* Final dot — house */
     .tl-dot-final {
-      background: rgba(255,255,255,0.1) !important;
       border-color: var(--white) !important;
+      background: rgba(255,255,255,0.12) !important;
+      width: 60px !important;
+      height: 60px !important;
     }
     .tl-item.visible .tl-dot-final {
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      box-shadow: 0 0 24px rgba(255,255,255,0.15), 0 0 48px rgba(255,255,255,0.06);
+      animation: tlPulse 2s ease-in-out infinite;
     }
-    .tl-content {
-      padding-left: 8px;
+    .tl-dot-final svg { width: 26px !important; height: 26px !important; }
+    @keyframes tlPulse {
+      0%, 100% { box-shadow: 0 0 24px rgba(255,255,255,0.15), 0 0 48px rgba(255,255,255,0.06); }
+      50% { box-shadow: 0 0 32px rgba(255,255,255,0.25), 0 0 60px rgba(255,255,255,0.1); }
     }
-    .tl-num {
+
+    /* Card content */
+    .tl-label {
       display: inline-block;
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 2px;
-      letter-spacing: 1px;
-    }
-    .tl-item.visible .tl-num {
-      color: rgba(255,255,255,0.6);
-    }
-    .tl-content h3 {
-      font-size: 1.05rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
       margin-bottom: 6px;
+    }
+    .tl-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
       color: var(--white);
     }
-    .tl-content p {
+    .tl-card p {
       color: var(--text-muted);
-      font-size: 0.88rem;
-      line-height: 1.6;
+      font-size: 0.85rem;
+      line-height: 1.65;
     }
+
     /* CTA in timeline */
     .tl-cta {
       position: relative;
-      padding: 20px 0 28px;
+      width: 70%;
+      margin: 8px auto 48px;
       opacity: 0;
-      transform: translateX(-16px);
-      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .tl-cta.visible { opacity: 1; transform: translateX(0); }
-    .tl-cta-line {
-      position: absolute;
-      left: -37px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: rgba(255,255,255,0.25);
-      border-left: 2px dashed rgba(255,255,255,0.3);
-    }
+    .tl-cta.visible { opacity: 1; transform: translateY(0); }
     .tl-cta-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: var(--radius);
-      padding: 20px 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 24px 28px;
       text-align: center;
     }
     .tl-cta-box p {
       color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-bottom: 12px;
+      font-size: 0.88rem;
+      margin-bottom: 14px;
     }
 
-    @media (max-width: 600px) {
-      .timeline { padding-left: 44px; margin-left: 8px; }
-      .timeline::before { left: 16px; }
-      .tl-dot { left: -44px; width: 32px; height: 32px; }
-      .tl-dot svg { width: 14px; height: 14px; }
-      .tl-content h3 { font-size: 0.95rem; }
+    /* Responsive: single column on mobile */
+    @media (max-width: 768px) {
+      .timeline::before, .timeline::after { left: 24px; }
+      .tl-item { width: calc(100% - 64px); margin-left: 64px !important; text-align: left !important; margin-bottom: 36px; }
+      .tl-item:nth-child(odd) .tl-dot,
+      .tl-item:nth-child(even) .tl-dot { left: -64px; right: auto; width: 44px; height: 44px; }
+      .tl-dot svg { width: 18px; height: 18px; }
+      .tl-dot-final { width: 50px !important; height: 50px !important; }
+      .tl-dot-final svg { width: 22px !important; height: 22px !important; }
+      .tl-item:nth-child(odd) .tl-dot { right: auto; }
+      .tl-card::after { display: none; }
+      .tl-card::before { left: 16px !important; right: auto !important; font-size: 3.5rem; }
+      .tl-card { padding: 20px 20px 16px; }
+      .tl-card h3 { font-size: 1rem; }
+      .tl-cta { width: calc(100% - 64px); margin-left: 64px; }
     }
 
     /* ============================================================
@@ -1376,10 +1451,10 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">1</span>
+          <div class="tl-card" data-step="1">
+            <span class="tl-label">Schritt 1</span>
             <h3>Steuernummer beantragen</h3>
-            <p>Codice Fiscale — Voraussetzung fuer jede Transaktion. Beim Konsulat oder bei der Agenzia delle Entrate.</p>
+            <p>Codice Fiscale — Voraussetzung fuer jede Transaktion in Italien. Beim Konsulat oder bei der Agenzia delle Entrate.</p>
           </div>
         </div>
 
@@ -1387,8 +1462,8 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="17" cy="15" r="2"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">2</span>
+          <div class="tl-card" data-step="2">
+            <span class="tl-label">Schritt 2</span>
             <h3>Bankkonto eroeffnen</h3>
             <p>Italienisches Konto (Conto Corrente per Non Residenti) fuer Zahlungen und Ueberweisungen.</p>
           </div>
@@ -1398,8 +1473,8 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M8 8l3 3 5-5" stroke-width="1.5"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">3</span>
+          <div class="tl-card" data-step="3">
+            <span class="tl-label">Schritt 3</span>
             <h3>Immobilie suchen &amp; besichtigen</h3>
             <p>Online-Portale, lokale Agenturen, persoenliche Besichtigung. Umgebung und Infrastruktur pruefen.</p>
           </div>
@@ -1409,8 +1484,8 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">4</span>
+          <div class="tl-card" data-step="4">
+            <span class="tl-label">Schritt 4</span>
             <h3>Due Diligence</h3>
             <p>Katasterauszug, Baukonformitaet, Grundbuch, Energieausweis — der wichtigste Schritt vor dem Kauf.</p>
           </div>
@@ -1418,7 +1493,6 @@
 
         <!-- CTA midpoint -->
         <div class="tl-cta">
-          <div class="tl-cta-line"></div>
           <div class="tl-cta-box">
             <p>Ab hier wird es rechtlich komplex. Viele unserer Klienten lassen sich ab diesem Punkt begleiten.</p>
             <button class="btn btn-outline" onclick="switchTab('kontakt')" style="font-size:0.8rem; padding:10px 24px;">Unverbindlich anfragen</button>
@@ -1429,8 +1503,8 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">5</span>
+          <div class="tl-card" data-step="5">
+            <span class="tl-label">Schritt 5</span>
             <h3>Vorvertrag (Compromesso)</h3>
             <p>Bindender Vorvertrag mit Preis, Bedingungen und Fristen. Anzahlung: 10–30% des Kaufpreises.</p>
           </div>
@@ -1440,8 +1514,8 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><path d="M9 15l2 2 4-4"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">6</span>
+          <div class="tl-card" data-step="6">
+            <span class="tl-label">Schritt 6</span>
             <h3>Notarvertrag (Rogito)</h3>
             <p>Endgueltiger Kaufvertrag vor dem Notar. Eigentumsuebergang, Restzahlung, Steuern und Gebuehren.</p>
           </div>
@@ -1451,8 +1525,8 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17,1 21,5 17,9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7,23 3,19 7,15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">7</span>
+          <div class="tl-card" data-step="7">
+            <span class="tl-label">Schritt 7</span>
             <h3>Eigentuemerwechsel (Voltura)</h3>
             <p>Eintragung beim Katasteramt und Grundbuchamt. Gemeinde informieren. Erledigt der Notar.</p>
           </div>
@@ -1462,10 +1536,10 @@
           <div class="tl-dot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">8</span>
+          <div class="tl-card" data-step="8">
+            <span class="tl-label">Schritt 8</span>
             <h3>Steuervorteile pruefen</h3>
-            <p>Flat Tax 7% fuer Rentner, Regime Impatriati, Prima-Casa-Verguenstigung — erhebliche Ersparnisse moeglich.</p>
+            <p>Flat Tax 7% fuer Rentner, Regime Impatriati, Prima-Casa — erhebliche Ersparnisse moeglich.</p>
           </div>
         </div>
 
@@ -1473,10 +1547,10 @@
           <div class="tl-dot tl-dot-final">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
           </div>
-          <div class="tl-content">
-            <span class="tl-num">9</span>
+          <div class="tl-card" data-step="9">
+            <span class="tl-label">Ziel erreicht</span>
             <h3>Schluesseluebergabe</h3>
-            <p>Versorgungsvertraege umstellen, IMU und TARI anmelden, Gebaeudeversicherung abschliessen. Fertig!</p>
+            <p>Versorgungsvertraege umstellen, IMU und TARI anmelden, Gebaeudeversicherung abschliessen. Willkommen in Italien!</p>
           </div>
         </div>
 
