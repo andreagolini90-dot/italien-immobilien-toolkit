@@ -461,88 +461,6 @@
       color: var(--text-muted);
     }
 
-    /* Lead Capture Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .modal-overlay.active {
-      display: flex;
-    }
-    .modal {
-      background: var(--primary);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius);
-      padding: 32px;
-      max-width: 440px;
-      width: 100%;
-      box-shadow: var(--shadow-lg);
-      position: relative;
-    }
-    .modal h3 {
-      color: var(--text);
-      margin-bottom: 8px;
-      font-size: 1.15rem;
-    }
-    .modal p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 20px;
-    }
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-muted);
-      line-height: 1;
-    }
-    .modal-close:hover {
-      color: var(--text);
-    }
-    .gdpr-check {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin: 16px 0 20px;
-    }
-    .gdpr-check input {
-      margin-top: 3px;
-      accent-color: var(--accent);
-    }
-    .gdpr-check label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    /* Success Message */
-    .success-msg {
-      display: none;
-      text-align: center;
-      padding: 24px;
-    }
-    .success-msg .checkmark {
-      font-size: 3rem;
-      margin-bottom: 12px;
-      color: var(--green);
-    }
-    .success-msg h3 {
-      color: var(--green);
-    }
-    .success-msg p {
-      color: var(--text-muted);
-    }
-
     /* Error */
     .error-msg {
       color: #ff6b6b;
@@ -584,7 +502,6 @@
       .btn { font-size: 1.1rem; padding: 16px 28px; }
       .results-table th, .results-table td { padding: 12px 14px; font-size: 1rem; }
       .accordion-header { font-size: 1.05rem; padding: 16px 18px; }
-      .modal { padding: 24px 16px; }
       .quiz-options { grid-template-columns: 1fr; }
     }
   </style>
@@ -685,11 +602,6 @@
           Hinweis: Die Registersteuer wird in Italien auf den Katasterwert (Valore Catastale) berechnet, der in der Regel deutlich unter dem Kaufpreis liegt. Diese Berechnung basiert auf dem Kaufpreis und stellt daher eine konservative Schaetzung (Maximalwert) dar. Fuer eine praezise Berechnung empfehlen wir eine individuelle Analyse.
         </p>
 
-        <div style="text-align:center;">
-          <button class="btn btn-secondary" onclick="showModal()">
-            Detaillierte Aufstellung per E-Mail erhalten
-          </button>
-        </div>
       </div>
 
     </div>
@@ -757,11 +669,6 @@
           Hinweis: Rentner mit Wohnsitz im Ausland, die eine in internationaler Konvention gereifte Rente beziehen, erhalten eine Ermaessigung von 50% auf die IMU fuer eine nicht vermietete Immobilie in Italien. Die TARI variiert je nach Gemeinde &mdash; die angegebenen Werte sind Richtwerte. Fuer eine praezise Berechnung empfehlen wir eine individuelle Analyse.
         </p>
 
-        <div style="text-align:center;">
-          <button class="btn btn-secondary" onclick="showModal()">
-            Vollstaendigen Steuerbericht per E-Mail erhalten
-          </button>
-        </div>
       </div>
 
       <!-- Agevolazioni Fiscali Section -->
@@ -803,12 +710,6 @@
           </ul>
         </div>
 
-        <div style="text-align:center; margin-top:24px;">
-          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:12px;">Moechten Sie pruefen, ob Sie fuer eine dieser Regelungen in Frage kommen?</p>
-          <button class="btn btn-primary" onclick="showModal()">
-            Ersteinschaetzung per E-Mail erhalten
-          </button>
-        </div>
       </div>
 
     </div>
@@ -958,11 +859,6 @@
 
       </div>
 
-      <div style="text-align:center; margin-top:32px;">
-        <button class="btn btn-secondary" onclick="showModal()">
-          Checkliste als PDF per E-Mail erhalten
-        </button>
-      </div>
 
     </div>
 
@@ -1016,13 +912,7 @@
         <h2 style="margin-bottom:16px;">Ihre Diagnose</h2>
         <div id="pl_diagnosisResult"></div>
 
-        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;">
-          <button class="btn btn-secondary" onclick="showModal()">
-            Detaillierte Analyse per E-Mail
-          </button>
-        </div>
-
-        <button class="btn btn-outline" style="margin-top:16px;" onclick="plRestart()">Neue Analyse starten</button>
+        <button class="btn btn-outline" style="margin-top:24px;" onclick="plRestart()">Neue Analyse starten</button>
       </div>
 
     </div>
@@ -1030,41 +920,9 @@
   </div><!-- /.container -->
 
   <!-- ============================================================
-       SHARED LEAD CAPTURE MODAL (single instance)
-       ============================================================ -->
-  <div id="leadModal" class="modal-overlay">
-    <div class="modal">
-      <button id="modalCloseBtn" class="modal-close">&times;</button>
-      <div id="modalForm">
-        <h3>Ergebnisse per E-Mail erhalten</h3>
-        <p>Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen eine detaillierte Aufstellung zu.</p>
-        <div class="form-group">
-          <input type="email" id="modalEmail" placeholder="ihre@email.de">
-        </div>
-        <div class="gdpr-check">
-          <input type="checkbox" id="modalGdpr">
-          <label for="modalGdpr">Ich stimme der Verarbeitung meiner Daten gemaess der Datenschutzerklaerung zu.</label>
-        </div>
-        <div id="modalError" class="error-msg"></div>
-        <button id="modalSubmitBtn" class="btn btn-primary btn-block">Absenden</button>
-      </div>
-      <div id="modalSuccess" class="success-msg">
-        <div class="checkmark">&#10003;</div>
-        <h3>Vielen Dank!</h3>
-        <p>Sie erhalten die detaillierten Ergebnisse in Kuerze per E-Mail.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
        ALL JAVASCRIPT - INLINED
        ============================================================ -->
   <script>
-    // ============================================================
-    // CONFIGURATION
-    // ============================================================
-    var WEBHOOK_URL = 'https://n8n-production-87eb.up.railway.app/webhook/lead-capture';
-
     // ============================================================
     // ACTIVE TAB TRACKING
     // ============================================================
@@ -1094,13 +952,6 @@
     }
 
     // ============================================================
-    // EMAIL VALIDATION
-    // ============================================================
-    function validateEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    // ============================================================
     // FORMAT CURRENCY
     // ============================================================
     function formatEUR(amount) {
@@ -1118,96 +969,6 @@
         minimumFractionDigits: 1,
         maximumFractionDigits: 2
       }).format(value);
-    }
-
-    // ============================================================
-    // LEAD CAPTURE - POST to n8n webhook
-    // ============================================================
-    function leadCapture(source, data) {
-      var payload = {
-        email: data.email,
-        source: source,
-        data: data,
-        timestamp: new Date().toISOString(),
-        gdpr_consent: true
-      };
-
-      return fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then(function(response) {
-        if (!response.ok) throw new Error('Webhook error');
-        return { success: true };
-      }).catch(function(err) {
-        console.error('Lead capture error:', err);
-        return { success: true, offline: true };
-      });
-    }
-
-    // ============================================================
-    // MODAL HELPERS
-    // ============================================================
-    function showModal() {
-      var overlay = document.getElementById('leadModal');
-      if (overlay) {
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-    }
-
-    function hideModal() {
-      var overlay = document.getElementById('leadModal');
-      if (overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    }
-
-    function showSuccess() {
-      var form = document.getElementById('modalForm');
-      var success = document.getElementById('modalSuccess');
-      if (form) form.style.display = 'none';
-      if (success) success.style.display = 'block';
-    }
-
-    function resetModal() {
-      var form = document.getElementById('modalForm');
-      var success = document.getElementById('modalSuccess');
-      var emailInput = document.getElementById('modalEmail');
-      var gdprCheck = document.getElementById('modalGdpr');
-      var errorEl = document.getElementById('modalError');
-
-      if (form) form.style.display = 'block';
-      if (success) success.style.display = 'none';
-      if (emailInput) emailInput.value = '';
-      if (gdprCheck) gdprCheck.checked = false;
-      if (errorEl) errorEl.textContent = '';
-    }
-
-    // Get modal source based on active tab
-    function getActiveModalSource() {
-      return activeTab;
-    }
-
-    // Get modal data based on active tab
-    function getActiveModalData() {
-      switch (activeTab) {
-        case 'kostenrechner':
-          return window._krCalcData || {};
-        case 'steuerrechner':
-          return window._srTaxData || {};
-        case 'checkliste':
-          return clGetChecklistProgress();
-        case 'problemloeser':
-          return {
-            category: plSelectedCategory ? PL_QUIZ_DATA[plSelectedCategory].label : '',
-            subcategory: plSelectedSub ? plSelectedSub.label : '',
-            urgency: plSelectedSub ? plSelectedSub.urgency : ''
-          };
-        default:
-          return {};
-      }
     }
 
     // ============================================================
@@ -1531,72 +1292,6 @@
       plShowStep(1);
     }
 
-    // ============================================================
-    // MODAL INITIALIZATION (on DOMContentLoaded)
-    // ============================================================
-    document.addEventListener('DOMContentLoaded', function() {
-
-      // Close modal on overlay click
-      var overlay = document.getElementById('leadModal');
-      if (overlay) {
-        overlay.addEventListener('click', function(e) {
-          if (e.target === overlay) {
-            hideModal();
-            setTimeout(resetModal, 300);
-          }
-        });
-      }
-
-      // Close button
-      var closeBtn = document.getElementById('modalCloseBtn');
-      if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-          hideModal();
-          setTimeout(resetModal, 300);
-        });
-      }
-
-      // Submit handler
-      var submitBtn = document.getElementById('modalSubmitBtn');
-      if (submitBtn) {
-        submitBtn.addEventListener('click', function() {
-          var email = document.getElementById('modalEmail').value.trim();
-          var gdpr = document.getElementById('modalGdpr').checked;
-          var errorEl = document.getElementById('modalError');
-
-          // Validate
-          if (!email) {
-            errorEl.textContent = 'Bitte geben Sie Ihre E-Mail-Adresse ein.';
-            return;
-          }
-          if (!validateEmail(email)) {
-            errorEl.textContent = 'Bitte geben Sie eine gueltige E-Mail-Adresse ein.';
-            return;
-          }
-          if (!gdpr) {
-            errorEl.textContent = 'Bitte stimmen Sie der Datenschutzerklaerung zu.';
-            return;
-          }
-
-          errorEl.textContent = '';
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Wird gesendet...';
-
-          var source = getActiveModalSource();
-          var extraData = getActiveModalData();
-          extraData.email = email;
-
-          leadCapture(source, extraData).then(function(result) {
-            if (result.success) {
-              showSuccess();
-            }
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Absenden';
-          });
-        });
-      }
-
-    });
 
     // Auto-resize iframe to fit content (no empty blue space)
     function notifyParentHeight() {
