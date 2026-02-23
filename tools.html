@@ -7,7 +7,7 @@
   <meta name="description" content="Kostenrechner, Steuerrechner, Checkliste und Problemloeser fuer den Immobilienkauf in Italien. Alle Tools auf einer Seite.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
        SHARED CSS (from shared.css) - inlined
@@ -40,7 +40,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Cinzel', serif;
+      font-family: 'Inter', sans-serif;
       color: var(--text);
       background: var(--bg);
       line-height: 1.6;
@@ -57,27 +57,7 @@
     .container {
       max-width: 720px;
       margin: 0 auto;
-      padding: 24px 16px;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 32px 0 24px;
-      border-bottom: 2px solid rgba(255,255,255,0.3);
-      margin-bottom: 0;
-    }
-    .hero h1 {
-      font-size: 1.6rem;
-      color: var(--text);
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-    .hero p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 540px;
-      margin: 0 auto;
+      padding: 8px 16px 24px;
     }
 
     /* ============================================================
@@ -88,20 +68,19 @@
       gap: 0;
       margin: 0;
       border-bottom: 2px solid rgba(255,255,255,0.2);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
     }
     .tab-btn {
       flex: 1;
       min-width: 0;
-      padding: 14px 10px;
+      padding: 14px 8px;
       background: transparent;
       border: none;
       border-bottom: 3px solid transparent;
       color: var(--text-muted);
-      font-family: 'Cinzel', serif;
+      font-family: 'Inter', sans-serif;
       font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
       text-align: center;
@@ -154,7 +133,7 @@
       border: 1px solid rgba(255,255,255,0.3);
       border-radius: var(--radius);
       font-size: 1rem;
-      font-family: 'Cinzel', serif;
+      font-family: 'Inter', sans-serif;
       background: rgba(255,255,255,0.1);
       color: var(--text);
       transition: border-color 0.2s;
@@ -210,7 +189,7 @@
       border-radius: var(--radius);
       font-size: 1rem;
       font-weight: 700;
-      font-family: 'Cinzel', serif;
+      font-family: 'Inter', sans-serif;
       cursor: pointer;
       transition: all 0.2s;
       text-align: center;
@@ -597,14 +576,6 @@
 </head>
 <body>
   <div class="container">
-
-    <!-- ============================================================
-         HERO SECTION
-         ============================================================ -->
-    <div class="hero">
-      <h1>Rechner &amp; Tools</h1>
-      <p>Alle wichtigen Werkzeuge fuer Ihren Immobilienkauf in Italien &mdash; Kostenrechner, Steuerrechner, Checkliste und Problemloeser.</p>
-    </div>
 
     <!-- ============================================================
          TAB NAVIGATION
