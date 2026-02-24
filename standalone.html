@@ -714,12 +714,41 @@
        LEAD MAGNET SECTION
        ============================================================ */
     .lead-magnet-section {
-      background: rgba(255,255,255,0.06);
-      border-top: 1px solid rgba(255,255,255,0.15);
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-      padding: 56px 24px;
+      background: var(--gray-50);
+      border-top: none;
+      border-bottom: none;
+      padding: 64px 24px;
       margin-top: 48px;
       text-align: center;
+    }
+    .lead-magnet-section h2 {
+      color: var(--primary);
+    }
+    .lead-magnet-section .subtitle {
+      color: #555;
+    }
+    .lead-magnet-form input {
+      background: #fff !important;
+      color: var(--primary) !important;
+      border-color: #ccc !important;
+    }
+    .lead-magnet-form input::placeholder {
+      color: #999 !important;
+    }
+    .lead-magnet-form input:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 3px rgba(58,67,89,0.15) !important;
+    }
+    .lead-magnet-form .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .lead-magnet-form .btn-primary:hover {
+      background: var(--primary-dark);
+      color: #fff;
+    }
+    .lead-magnet-form .gdpr-check label {
+      color: #666;
     }
     .lead-magnet-inner {
       max-width: 600px;
@@ -763,12 +792,14 @@
        TRUST SECTION
        ============================================================ */
     .trust-section {
-      padding: 56px 24px;
+      background: #fff;
+      padding: 64px 24px;
       text-align: center;
     }
     .trust-section h2 {
       font-size: 1.5rem;
       margin-bottom: 36px;
+      color: var(--primary);
     }
     .trust-points {
       display: grid;
@@ -787,7 +818,7 @@
     .trust-point .trust-icon svg {
       width: 48px;
       height: 48px;
-      stroke: var(--white);
+      stroke: var(--primary);
       fill: none;
       stroke-width: 1.5;
       stroke-linecap: round;
@@ -796,9 +827,10 @@
     .trust-point h3 {
       font-size: 1.1rem;
       margin-bottom: 8px;
+      color: var(--primary);
     }
     .trust-point p {
-      color: var(--text-muted);
+      color: #666;
       font-size: 0.9rem;
     }
     .trust-stats {
@@ -811,11 +843,11 @@
       font-family: 'Playfair Display', serif;
       font-size: 2.5rem;
       font-weight: 900;
-      color: var(--white);
+      color: var(--primary);
       display: block;
     }
     .trust-stat .stat-label {
-      color: var(--text-muted);
+      color: #666;
       font-size: 0.9rem;
     }
 
@@ -824,10 +856,11 @@
        ============================================================ */
     .disclaimer-section {
       padding: 32px 24px;
-      border-top: 1px solid rgba(255,255,255,0.15);
+      border-top: none;
       text-align: center;
       max-width: 700px;
       margin: 0 auto;
+      background: var(--bg);
     }
     .disclaimer-section p {
       color: var(--text-muted);
@@ -835,9 +868,9 @@
       line-height: 1.6;
     }
     .site-footer {
-      background: var(--primary-dark);
+      background: #1a1f2e;
       padding: 48px 24px 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: none;
     }
     .footer-inner {
       max-width: 900px;
@@ -959,6 +992,9 @@
       .footer-right {
         text-align: center;
       }
+      .footer-links-grid {
+        grid-template-columns: 1fr !important;
+      }
     }
 
     /* ============================================================
@@ -995,7 +1031,7 @@
       top: 0;
       bottom: 0;
       width: 3px;
-      background: rgba(255,255,255,0.1);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.15) 20%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.05));
       transform: translateX(-50%);
     }
     /* Animated fill line */
@@ -1006,7 +1042,7 @@
       top: 0;
       width: 3px;
       height: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+      background: linear-gradient(to bottom, #6B8DD6, #8E6BC6, #C66B8E);
       transform: translateX(-50%);
       transition: height 0.3s ease;
     }
@@ -1036,10 +1072,22 @@
       padding: 24px 24px 20px;
       transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
     }
+    .tl-item:nth-child(odd) .tl-card {
+      border-right: 3px solid rgba(107,141,214,0.4);
+    }
+    .tl-item:nth-child(even) .tl-card {
+      border-left: 3px solid rgba(142,107,198,0.4);
+    }
     .tl-card:hover {
       transform: translateY(-3px);
       border-color: rgba(255,255,255,0.25);
       box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .tl-item:nth-child(odd) .tl-card:hover {
+      border-right-color: rgba(107,141,214,0.7);
+    }
+    .tl-item:nth-child(even) .tl-card:hover {
+      border-left-color: rgba(142,107,198,0.7);
     }
     /* Watermark number */
     .tl-card::before {
@@ -1073,10 +1121,15 @@
     }
     .tl-item:nth-child(odd) .tl-dot { right: -78px; }
     .tl-item:nth-child(even) .tl-dot { left: -78px; }
-    .tl-item.visible .tl-dot {
-      border-color: rgba(255,255,255,0.6);
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 0 20px rgba(255,255,255,0.08), 0 0 40px rgba(255,255,255,0.03);
+    .tl-item:nth-child(odd).visible .tl-dot {
+      border-color: rgba(107,141,214,0.6);
+      background: rgba(107,141,214,0.1);
+      box-shadow: 0 0 20px rgba(107,141,214,0.15), 0 0 40px rgba(107,141,214,0.05);
+    }
+    .tl-item:nth-child(even).visible .tl-dot {
+      border-color: rgba(142,107,198,0.6);
+      background: rgba(142,107,198,0.1);
+      box-shadow: 0 0 20px rgba(142,107,198,0.15), 0 0 40px rgba(142,107,198,0.05);
     }
     .tl-dot svg {
       width: 22px;
@@ -1121,12 +1174,20 @@
     .tl-label {
       display: inline-block;
       font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 6px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 8px;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .tl-item:nth-child(odd) .tl-label {
+      background: rgba(107,141,214,0.2);
+    }
+    .tl-item:nth-child(even) .tl-label {
+      background: rgba(142,107,198,0.2);
     }
     .tl-card h3 {
       font-size: 1.1rem;
@@ -1150,11 +1211,12 @@
     }
     .tl-cta.visible { opacity: 1; transform: translateY(0); }
     .tl-cta-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px dashed rgba(255,255,255,0.25);
+      background: linear-gradient(135deg, rgba(107,141,214,0.1), rgba(142,107,198,0.1));
+      border: 1px solid rgba(142,107,198,0.3);
       border-radius: 12px;
-      padding: 24px 28px;
+      padding: 28px 32px;
       text-align: center;
+      box-shadow: 0 4px 24px rgba(107,141,214,0.08);
     }
     .tl-cta-box p {
       color: var(--text-muted);
@@ -1174,6 +1236,8 @@
       .tl-item:nth-child(odd) .tl-dot { right: auto; }
       .tl-card::after { display: none; }
       .tl-card::before { left: 16px !important; right: auto !important; font-size: 3.5rem; }
+      .tl-item:nth-child(odd) .tl-card { border-right: none; border-left: 3px solid rgba(107,141,214,0.4); }
+      .tl-item:nth-child(even) .tl-card { border-left: 3px solid rgba(142,107,198,0.4); }
       .tl-card { padding: 20px 20px 16px; }
       .tl-card h3 { font-size: 1rem; }
       .tl-cta { width: calc(100% - 64px); margin-left: 64px; }
@@ -1557,9 +1621,9 @@
       </div><!-- /.timeline -->
 
       <!-- CTA end -->
-      <div class="cta-inline" style="margin-top:40px;">
-        <p style="font-size:0.9rem;">Wir begleiten Sie persoenlich durch jeden dieser Schritte — von der Due Diligence bis zur Schluesseluebergabe.</p>
-        <button class="btn btn-outline" onclick="switchTab('kontakt')">Kostenlose Erstberatung anfragen</button>
+      <div style="margin-top:40px; text-align:center; padding:32px 24px; background:linear-gradient(135deg, rgba(107,141,214,0.12), rgba(142,107,198,0.12)); border:1px solid rgba(142,107,198,0.2); border-radius:12px;">
+        <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:16px;">Wir begleiten Sie persoenlich durch jeden dieser Schritte — von der Due Diligence bis zur Schluesseluebergabe.</p>
+        <button class="btn btn-outline" onclick="switchTab('kontakt')" style="border-color:rgba(142,107,198,0.5); transition:all 0.3s;">Kostenlose Erstberatung anfragen</button>
       </div>
     </div>
 
@@ -1740,7 +1804,7 @@
 
           <div class="gdpr-check">
             <input type="checkbox" id="kf_dsgvo" required>
-            <label for="kf_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten gemaess der <a href="#" onclick="event.preventDefault();alert('Die vollstaendige Datenschutzerklaerung finden Sie unter www.italienischeranwalt.com');" style="color:var(--white);cursor:pointer;">Datenschutzerklaerung</a> zu. Meine Daten werden ausschliesslich zur Bearbeitung meiner Anfrage verwendet. *</label>
+            <label for="kf_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten gemaess der <a href="https://www.avvocatogolini.it/privacy/" target="_blank" rel="noopener" style="color:var(--white);cursor:pointer;">Datenschutzerklaerung</a> zu. Meine Daten werden ausschliesslich zur Bearbeitung meiner Anfrage verwendet. *</label>
           </div>
 
           <div id="kf_error" class="error-msg" style="text-align:center; margin-bottom:12px;"></div>
@@ -1896,25 +1960,37 @@
           <a href="#tools" onclick="switchTab('kontakt')" class="footer-cta-btn" style="margin-top:20px;">Kontakt aufnehmen</a>
         </div>
       </div>
-      <div class="footer-links">
-        <a href="#" onclick="event.preventDefault();alert('Die Datenschutzerklaerung finden Sie unter www.italienischeranwalt.com');">Privacy &amp; Cookie Policy</a>
+      <div class="footer-links-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:28px 0;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);">
+        <a href="https://italien-immobilien.italienischeranwalt.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;padding:10px 14px;border-radius:8px;transition:background 0.2s;background:rgba(255,255,255,0.04);">
+          <span style="font-size:1.1rem;">&#127465;&#127466;&#127968;</span>
+          <span><strong style="color:#fff;display:block;font-size:0.85rem;">Zwangsversteigerungen</strong>italien-immobilien.italienischeranwalt.com</span>
+        </a>
+        <a href="https://italienischeranwalt.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;padding:10px 14px;border-radius:8px;transition:background 0.2s;background:rgba(255,255,255,0.04);">
+          <span style="font-size:1.1rem;">&#127465;&#127466;</span>
+          <span><strong style="color:#fff;display:block;font-size:0.85rem;">Italienischer Anwalt</strong>italienischeranwalt.com</span>
+        </a>
+        <a href="https://www.avvocatogolini.it" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;padding:10px 14px;border-radius:8px;transition:background 0.2s;background:rgba(255,255,255,0.04);">
+          <span style="font-size:1.1rem;">&#127470;&#127481;</span>
+          <span><strong style="color:#fff;display:block;font-size:0.85rem;">Studio Legale Golini</strong>avvocatogolini.it</span>
+        </a>
+        <a href="https://www.avvocatogolini.it/privacy/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;padding:10px 14px;border-radius:8px;transition:background 0.2s;background:rgba(255,255,255,0.04);">
+          <span style="font-size:1.1rem;">&#128274;</span>
+          <span><strong style="color:#fff;display:block;font-size:0.85rem;">Privacy &amp; Cookie Policy</strong>Informativa sulla privacy</span>
+        </a>
       </div>
-      <div class="footer-social">
+      <div class="footer-social" style="padding:24px 0 16px;">
         <a href="https://www.facebook.com/avvocatogolini" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
         <a href="https://www.instagram.com/studio_legale_golini/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C16.67.014 16.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C16.67.014 16.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </a>
         <a href="https://www.youtube.com/@StudioLegaleGolini" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
       </div>
       <div class="footer-bottom">
-        <p><strong>Studio Legale Golini</strong></p>
-        <p>Ihr italienischer Anwalt fuer Immobilienrecht</p>
-        <p style="margin-top:8px; color:var(--text-muted);">www.italienischeranwalt.com</p>
-        <p style="margin-top:12px; font-size:0.75rem;">&copy; 2026 Studio Legale Golini. Alle Rechte vorbehalten.</p>
+        <p style="margin-bottom:12px; font-size:0.75rem;">&copy; 2026 Studio Legale Golini. Alle Rechte vorbehalten.</p>
       </div>
     </div>
   </footer>
